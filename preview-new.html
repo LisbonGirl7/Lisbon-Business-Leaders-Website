@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lisbon Business Leaders</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black:   #0E0E0E;
+      --dark:    #141414;
+      --white:   #FFFFFF;
+      --ivory:   #F7F4EF;
+      --stone:   #E8E3DA;
+      --gold:    #B9935A;
+      --gold-lt: #D4AA78;
+      --muted:   rgba(255,255,255,0.55);
+      --serif:   'Cormorant Garamond', Georgia, serif;
+      --sans:    'Inter', system-ui, sans-serif;
+    }
+    html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+    body { background: var(--ivory); color: var(--black); font-family: var(--sans); }
+    a { text-decoration: none; color: inherit; }
+
+    .wrap { max-width: 1160px; margin: 0 auto; padding: 0 48px; }
+
+    .label {
+      font-family: var(--sans); font-size: 10px; font-weight: 600;
+      letter-spacing: 0.26em; text-transform: uppercase;
+      color: var(--gold); display: block; margin-bottom: 18px;
+    }
+    .label--light { color: rgba(255,255,255,0.4); }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--sans); font-size: 11px;
+      font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 14px 28px; transition: all 0.2s; cursor: pointer; border: none;
+    }
+    .btn--gold   { background: var(--gold); color: var(--white); }
+    .btn--gold:hover { background: var(--gold-lt); }
+    .btn--outline { border: 1px solid rgba(255,255,255,0.35); color: var(--white); background: transparent; }
+    .btn--outline:hover { border-color: var(--white); background: rgba(255,255,255,0.06); }
+    .btn--outline-dark { border: 1px solid rgba(0,0,0,0.25); color: var(--black); background: transparent; }
+    .btn--outline-dark:hover { background: var(--black); color: var(--white); }
+    .btn--dark { background: var(--black); color: var(--white); }
+    .btn--dark:hover { background: #2a2a2a; }
+
+    /* ── LOGO SVG (the real bridge) ─────────────────── */
+    /* Inline in HTML below */
+
+    /* ── NAV ───────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: 72px; background: rgba(14,14,14,0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex; align-items: center;
+    }
+    .nav__inner {
+      display: flex; align-items: center; justify-content: space-between; width: 100%;
+    }
+    .nav__logo { display: flex; align-items: center; }
+    .nav__links { display: flex; align-items: center; gap: 32px; }
+    .nav__link {
+      font-family: var(--sans); font-size: 11px; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.55); transition: color 0.2s;
+    }
+    .nav__link:hover, .nav__link.active { color: var(--white); }
+    .nav__cta {
+      font-family: var(--sans); font-size: 11px; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      border: 1px solid var(--gold); color: var(--gold);
+      padding: 9px 20px; transition: all 0.2s;
+    }
+    .nav__cta:hover { background: var(--gold); color: var(--white); }
+
+    /* ── HERO ──────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; align-items: flex-end;
+      padding-bottom: 100px;
+      overflow: hidden;
+    }
+    .hero__bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(14,14,14,0.55) 0%, rgba(14,14,14,0.82) 60%, rgba(14,14,14,0.96) 100%),
+        url('https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=1600&q=85') center/cover no-repeat;
+    }
+    .hero__content {
+      position: relative; z-index: 1; width: 100%;
+    }
+    .hero__eyebrow {
+      font-family: var(--sans); font-size: 10px; font-weight: 600;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 28px;
+    }
+    .hero__title {
+      font-family: var(--serif); font-size: clamp(48px, 6.5vw, 88px);
+      font-weight: 500; line-height: 1.03; color: var(--white);
+      max-width: 860px; margin-bottom: 28px;
+    }
+    .hero__sub {
+      font-family: var(--sans); font-size: 16px; line-height: 1.8;
+      color: rgba(255,255,255,0.6); max-width: 520px; margin-bottom: 48px;
+    }
+    .hero__actions { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+    .hero__scroll {
+      position: absolute; bottom: 36px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      color: rgba(255,255,255,0.3); font-family: var(--sans); font-size: 9px;
+      letter-spacing: 0.2em; text-transform: uppercase;
+    }
+    .hero__scroll-line {
+      width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+    }
+
+    /* ── POSITIONING ───────────────────────────────── */
+    .positioning { background: var(--ivory); padding: 120px 0; }
+    .positioning__inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start;
+    }
+    .positioning__title {
+      font-family: var(--serif); font-size: clamp(38px, 4.5vw, 58px);
+      font-weight: 500; line-height: 1.08; color: var(--black); margin-bottom: 32px;
+    }
+    .positioning__body {
+      font-family: var(--sans); font-size: 15px; line-height: 1.85;
+      color: rgba(0,0,0,0.55);
+    }
+    .positioning__body p { margin-bottom: 16px; }
+    .positioning__body p:last-child { margin-bottom: 0; }
+    .positioning__quote {
+      border-left: 2px solid var(--gold); padding-left: 32px; margin-top: 8px;
+    }
+    .positioning__quote blockquote {
+      font-family: var(--serif); font-size: clamp(24px, 2.8vw, 34px);
+      font-style: italic; font-weight: 400; line-height: 1.4;
+      color: var(--black); margin-bottom: 20px;
+    }
+    .positioning__quote cite {
+      font-family: var(--sans); font-size: 11px; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(0,0,0,0.35); font-style: normal;
+    }
+
+    /* ── HOW IT WORKS ──────────────────────────────── */
+    .how { background: var(--dark); padding: 120px 0; }
+    .how__inner { }
+    .how__header { margin-bottom: 72px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; }
+    .how__headline {
+      font-family: var(--serif); font-size: clamp(36px, 4.5vw, 56px);
+      font-weight: 500; line-height: 1.1; color: var(--white);
+    }
+    .how__pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; }
+    .how__pillar { background: rgba(255,255,255,0.03); padding: 48px 40px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .how__num {
+      font-family: var(--serif); font-size: 13px; color: var(--gold);
+      letter-spacing: 0.1em; margin-bottom: 20px; display: block;
+    }
+    .how__pillar-title {
+      font-family: var(--serif); font-size: 28px; font-weight: 500;
+      color: var(--white); margin-bottom: 16px;
+    }
+    .how__pillar-text {
+      font-family: var(--sans); font-size: 13px; line-height: 1.8;
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* ── GATHERING FORMATS ─────────────────────────── */
+    .formats { background: var(--ivory); padding: 120px 0; }
+    .formats__header {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      align-items: end; margin-bottom: 64px;
+    }
+    .formats__title {
+      font-family: var(--serif); font-size: clamp(36px, 4vw, 52px);
+      font-weight: 500; line-height: 1.1; color: var(--black);
+    }
+    .formats__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+    .format-card {
+      background: var(--white); padding: 44px 32px;
+      border-top: 2px solid var(--gold);
+    }
+    .format-card__icon { margin-bottom: 20px; }
+    .format-card__icon svg { width: 28px; height: 28px; stroke: var(--gold); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .format-card__tag {
+      font-family: var(--sans); font-size: 10px; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 12px; display: block;
+    }
+    .format-card__title {
+      font-family: var(--serif); font-size: 22px; font-weight: 500;
+      color: var(--black); margin-bottom: 12px; line-height: 1.2;
+    }
+    .format-card__text {
+      font-family: var(--sans); font-size: 13px; line-height: 1.75;
+      color: rgba(0,0,0,0.5);
+    }
+
+    /* ── FEATURED EVENT ────────────────────────────── */
+    .event { background: var(--dark); padding: 0; }
+    .event__inner { display: grid; grid-template-columns: 1fr 1fr; }
+    .event__image {
+      position: relative; min-height: 560px; overflow: hidden;
+      background: url('https://images.unsplash.com/photo-1541178735493-479c1a27ed24?w=800&q=80') center/cover no-repeat;
+    }
+    .event__image-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(14,14,14,0.3) 0%, transparent 100%);
+    }
+    .event__body { padding: 80px 64px; display: flex; flex-direction: column; justify-content: center; }
+    .event__format-tag {
+      font-family: var(--sans); font-size: 10px; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 20px;
+    }
+    .event__title {
+      font-family: var(--serif); font-size: clamp(34px, 4vw, 52px);
+      font-weight: 500; line-height: 1.08; color: var(--white);
+      margin-bottom: 20px;
+    }
+    .event__desc {
+      font-family: var(--sans); font-size: 14px; line-height: 1.8;
+      color: rgba(255,255,255,0.55); margin-bottom: 36px; max-width: 400px;
+    }
+    .event__meta { display: flex; flex-direction: column; gap: 10px; margin-bottom: 40px; }
+    .event__meta-row {
+      display: flex; gap: 14px; align-items: baseline;
+    }
+    .event__meta-label {
+      font-family: var(--sans); font-size: 9px; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255,255,255,0.28); width: 60px; flex-shrink: 0;
+    }
+    .event__meta-value {
+      font-family: var(--sans); font-size: 13px;
+      color: rgba(255,255,255,0.75);
+    }
+
+    /* ── PAST GATHERINGS ───────────────────────────── */
+    .past { background: var(--ivory); padding: 120px 0; }
+    .past__header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 48px;
+    }
+    .past__title {
+      font-family: var(--serif); font-size: clamp(36px, 4vw, 52px);
+      font-weight: 500; color: var(--black); line-height: 1.1;
+    }
+    .past__view-all {
+      font-family: var(--sans); font-size: 11px; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold);
+      border-bottom: 1px solid var(--gold); padding-bottom: 2px;
+      white-space: nowrap;
+    }
+    .past__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .past-card { background: var(--white); overflow: hidden; }
+    .past-card__img {
+      height: 200px;
+      background: var(--stone); position: relative; overflow: hidden;
+    }
+    .past-card__img-inner {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      transition: transform 0.4s ease;
+    }
+    .past-card:hover .past-card__img-inner { transform: scale(1.04); }
+    .past-card__body { padding: 28px 28px 32px; }
+    .past-card__format {
+      font-family: var(--sans); font-size: 9px; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 10px;
+    }
+    .past-card__title {
+      font-family: var(--serif); font-size: 22px; font-weight: 500;
+      color: var(--black); line-height: 1.2; margin-bottom: 10px;
+    }
+    .past-card__desc {
+      font-family: var(--sans); font-size: 12px; line-height: 1.7;
+      color: rgba(0,0,0,0.5); margin-bottom: 16px;
+    }
+    .past-card__date {
+      font-family: var(--sans); font-size: 10px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(0,0,0,0.3);
+    }
+
+    /* ── MEMBERSHIP ────────────────────────────────── */
+    .membership { background: var(--dark); padding: 120px 0; }
+    .membership__inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .membership__title {
+      font-family: var(--serif); font-size: clamp(40px, 5vw, 64px);
+      font-weight: 500; line-height: 1.05; color: var(--white); margin-bottom: 20px;
+    }
+    .membership__sub {
+      font-family: var(--sans); font-size: 14px; line-height: 1.8;
+      color: rgba(255,255,255,0.5); margin-bottom: 36px;
+    }
+    .membership__list { list-style: none; margin-bottom: 40px; }
+    .membership__list li {
+      font-family: var(--sans); font-size: 13px; color: rgba(255,255,255,0.55);
+      padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex; gap: 14px; align-items: center;
+    }
+    .membership__list li::before { content: ''; width: 16px; height: 1px; background: var(--gold); flex-shrink: 0; }
+    .membership__note {
+      font-family: var(--sans); font-size: 11px; color: rgba(255,255,255,0.25);
+      letter-spacing: 0.06em; margin-top: 14px;
+    }
+    .membership__quote-side {
+      border-left: 2px solid var(--gold); padding-left: 36px;
+    }
+    .membership__quote {
+      font-family: var(--serif); font-size: clamp(22px, 2.5vw, 30px);
+      font-style: italic; line-height: 1.5; color: rgba(255,255,255,0.65);
+      margin-bottom: 20px;
+    }
+    .membership__quote-attr {
+      font-family: var(--sans); font-size: 10px; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.25);
+    }
+
+    /* ── PARTNERS ──────────────────────────────────── */
+    .partners { background: var(--ivory); padding: 80px 0; border-top: 1px solid rgba(0,0,0,0.06); }
+    .partners__header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 48px;
+    }
+    .partners__title {
+      font-family: var(--serif); font-size: 28px; font-weight: 500; color: var(--black);
+    }
+    .partners__logos { display: flex; gap: 0; align-items: center; flex-wrap: wrap; }
+    .partner-logo {
+      flex: 1; min-width: 120px; height: 64px;
+      border-right: 1px solid rgba(0,0,0,0.06);
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 24px;
+    }
+    .partner-logo:last-child { border-right: none; }
+    .partner-logo span {
+      font-family: var(--sans); font-size: 12px; font-weight: 600;
+      letter-spacing: 0.08em; color: rgba(0,0,0,0.3);
+    }
+
+    /* ── EMAIL ─────────────────────────────────────── */
+    .email { background: var(--dark); padding: 100px 0; text-align: center; }
+    .email__inner { max-width: 560px; margin: 0 auto; }
+    .email__title {
+      font-family: var(--serif); font-size: clamp(36px, 4.5vw, 56px);
+      font-weight: 500; color: var(--white); line-height: 1.1; margin-bottom: 14px;
+    }
+    .email__sub {
+      font-family: var(--sans); font-size: 15px; line-height: 1.7;
+      color: rgba(255,255,255,0.45); margin-bottom: 40px;
+    }
+    .email__form { display: flex; }
+    .email__input {
+      flex: 1; font-family: var(--sans); font-size: 14px;
+      padding: 16px 20px; background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12); border-right: none;
+      color: var(--white); outline: none;
+    }
+    .email__input::placeholder { color: rgba(255,255,255,0.25); }
+
+    /* ── FOOTER ────────────────────────────────────── */
+    .footer { background: var(--black); padding: 64px 0 28px; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer__top {
+      display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 48px;
+      margin-bottom: 48px; padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer__tagline { font-family: var(--sans); font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.35); margin: 16px 0 10px; }
+    .footer__bli { font-family: var(--sans); font-size: 11px; color: rgba(255,255,255,0.2); }
+    .footer__bli strong { color: rgba(255,255,255,0.35); font-weight: 500; }
+    .footer__col h4 { font-family: var(--sans); font-size: 9px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+    .footer__col ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+    .footer__col ul a { font-family: var(--sans); font-size: 13px; color: rgba(255,255,255,0.35); transition: color 0.2s; }
+    .footer__col ul a:hover { color: var(--white); }
+    .footer__bottom { display: flex; justify-content: space-between; align-items: center; }
+    .footer__copy { font-family: var(--sans); font-size: 11px; color: rgba(255,255,255,0.18); }
+    .footer__socials { display: flex; gap: 12px; }
+    .footer__social { width: 32px; height: 32px; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; transition: border-color 0.2s; }
+    .footer__social:hover { border-color: rgba(255,255,255,0.35); }
+    .footer__social svg { width: 13px; height: 13px; fill: rgba(255,255,255,0.35); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav__inner wrap">
+      <!-- Real bridge logo SVG (white version) -->
+      <a href="#" class="nav__logo">
+        <svg viewBox="0 0 300 68" fill="none" xmlns="http://www.w3.org/2000/svg" height="42" width="auto">
+          <!-- Left tower (taller, detailed with cross-bracing) -->
+          <!-- Outer left leg -->
+          <line x1="28" y1="56" x2="22" y2="6" stroke="white" stroke-width="1.2"/>
+          <!-- Outer right leg -->
+          <line x1="52" y1="56" x2="58" y2="6" stroke="white" stroke-width="1.2"/>
+          <!-- Inner left leg -->
+          <line x1="34" y1="56" x2="30" y2="8" stroke="white" stroke-width="0.9"/>
+          <!-- Inner right leg -->
+          <line x1="46" y1="56" x2="50" y2="8" stroke="white" stroke-width="0.9"/>
+          <!-- Cross braces left tower -->
+          <line x1="22" y1="24" x2="50" y2="38" stroke="white" stroke-width="0.7" opacity="0.7"/>
+          <line x1="22" y1="38" x2="50" y2="24" stroke="white" stroke-width="0.7" opacity="0.7"/>
+          <!-- Top cap left tower -->
+          <line x1="20" y1="6" x2="60" y2="6" stroke="white" stroke-width="1.4"/>
+
+          <!-- Right tower (smaller, behind) -->
+          <!-- Outer left leg -->
+          <line x1="76" y1="56" x2="72" y2="18" stroke="white" stroke-width="1.1"/>
+          <!-- Outer right leg -->
+          <line x1="94" y1="56" x2="98" y2="18" stroke="white" stroke-width="1.1"/>
+          <!-- Inner legs -->
+          <line x1="80" y1="56" x2="77" y2="19" stroke="white" stroke-width="0.75"/>
+          <line x1="90" y1="56" x2="93" y2="19" stroke="white" stroke-width="0.75"/>
+          <!-- Cross braces right tower -->
+          <line x1="72" y1="30" x2="93" y2="40" stroke="white" stroke-width="0.6" opacity="0.65"/>
+          <line x1="72" y1="40" x2="93" y2="30" stroke="white" stroke-width="0.6" opacity="0.65"/>
+          <!-- Top cap right tower -->
+          <line x1="70" y1="18" x2="100" y2="18" stroke="white" stroke-width="1.2"/>
+
+          <!-- Main suspension cables (3 parallel lines) -->
+          <!-- Cable 1 (leftmost) - from far left to right tower -->
+          <path d="M0,42 Q22,8 40,6 Q70,18 85,18 Q95,18 110,36" stroke="white" stroke-width="1.1" fill="none"/>
+          <!-- Cable 2 -->
+          <path d="M0,46 Q22,12 40,9 Q70,21 85,21 Q95,21 110,40" stroke="white" stroke-width="0.85" fill="none" opacity="0.75"/>
+          <!-- Cable 3 -->
+          <path d="M0,50 Q22,16 40,13 Q70,24 85,24 Q95,24 110,44" stroke="white" stroke-width="0.65" fill="none" opacity="0.5"/>
+
+          <!-- Bridge deck -->
+          <line x1="0" y1="56" x2="110" y2="56" stroke="white" stroke-width="1.5"/>
+
+          <!-- Water reflection lines -->
+          <line x1="5"  y1="62" x2="105" y2="62" stroke="white" stroke-width="0.8" opacity="0.25"/>
+          <line x1="15" y1="66" x2="95"  y2="66" stroke="white" stroke-width="0.5" opacity="0.12"/>
+
+          <!-- Text: LISBON -->
+          <text x="126" y="32" font-family="Cormorant Garamond, Georgia, serif" font-size="28" font-weight="700" fill="white" letter-spacing="4">LISBON</text>
+          <!-- Divider line -->
+          <line x1="126" y1="40" x2="296" y2="40" stroke="rgba(255,255,255,0.18)" stroke-width="0.7"/>
+          <!-- Text: BUSINESS LEADERS -->
+          <text x="127" y="54" font-family="Cormorant Garamond, Georgia, serif" font-size="13" font-weight="400" fill="rgba(255,255,255,0.65)" letter-spacing="5.5">BUSINESS LEADERS</text>
+        </svg>
+      </a>
+
+      <nav class="nav__links">
+        <a href="#" class="nav__link active">About</a>
+        <a href="#" class="nav__link">Gatherings</a>
+        <a href="#" class="nav__link">Membership</a>
+        <a href="#" class="nav__link">Partners</a>
+        <a href="#" class="nav__link">Insights</a>
+        <a href="#" class="nav__link">Contact</a>
+      </nav>
+      <a href="#" class="nav__cta">Request Invitation</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__bg"></div>
+    <div class="hero__content wrap">
+      <p class="hero__eyebrow">Lisbon · First city hub of Business Leaders International</p>
+      <h1 class="hero__title">Where Lisbon's business leaders connect and grow.</h1>
+      <p class="hero__sub">Access real opportunities, build meaningful partnerships, and develop as a leader — in a way that's engaging, social, and actually enjoyable.</p>
+      <div class="hero__actions">
+        <a href="#" class="btn btn--gold">Join the Community</a>
+        <a href="#" class="btn btn--outline">View Gatherings</a>
+      </div>
+    </div>
+    <div class="hero__scroll">
+      <div class="hero__scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- POSITIONING -->
+  <section class="positioning">
+    <div class="positioning__inner wrap">
+      <div>
+        <span class="label">More than networking</span>
+        <h2 class="positioning__title">This is where<br>business gets done.</h2>
+        <div class="positioning__body">
+          <p>Partnerships are formed. Opportunities are created. And leaders grow through real-world conversations and experiences.</p>
+          <p>LBL is built for people already in motion — founders building companies, corporate leaders managing teams and outcomes.</p>
+          <p>What makes the room valuable is not just who attends, but how each gathering is curated, structured, and facilitated.</p>
+        </div>
+      </div>
+      <div class="positioning__quote">
+        <blockquote>"The conversations I've had at LBL gatherings have been unlike anything else in Lisbon."</blockquote>
+        <cite>— LBL Member</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how">
+    <div class="wrap">
+      <div class="how__header">
+        <div>
+          <span class="label label--light">How It Works</span>
+          <h2 class="how__headline">Every gathering is<br>designed with intention.</h2>
+        </div>
+        <p style="font-family:var(--sans); font-size:14px; line-height:1.8; color:rgba(255,255,255,0.4); max-width:360px;">
+          From the guest list to the room format, every decision is made to ensure the gathering delivers real value.
+        </p>
+      </div>
+      <div class="how__pillars">
+        <div class="how__pillar">
+          <span class="how__num">01</span>
+          <h3 class="how__pillar-title">Curated</h3>
+          <p class="how__pillar-text">Every seat matters. Guests are selected based on relevance, not reach. The room is built so every conversation has potential.</p>
+        </div>
+        <div class="how__pillar">
+          <span class="how__num">02</span>
+          <h3 class="how__pillar-title">Structured</h3>
+          <p class="how__pillar-text">Each format has a flow — an opening, a theme, a facilitated moment — so participants leave with something real.</p>
+        </div>
+        <div class="how__pillar">
+          <span class="how__num">03</span>
+          <h3 class="how__pillar-title">Facilitated</h3>
+          <p class="how__pillar-text">A host guides the room. That might be a question, a provocation, or a moment of shared insight that creates the conditions for connection.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GATHERING FORMATS -->
+  <section class="formats">
+    <div class="wrap">
+      <div class="formats__header">
+        <div>
+          <span class="label">Gathering Formats</span>
+          <h2 class="formats__title">Business,<br>done differently.</h2>
+        </div>
+        <p style="font-family:var(--sans); font-size:15px; line-height:1.8; color:rgba(0,0,0,0.5); max-width:380px;">
+          From curated dinners to interactive experiences, each event is designed to create opportunities while keeping it dynamic, social, and engaging.
+        </p>
+      </div>
+      <div class="formats__grid">
+        <div class="format-card">
+          <div class="format-card__icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <span class="format-card__tag">Signature Experiences</span>
+          <h3 class="format-card__title">Immersive evenings in exceptional venues.</h3>
+          <p class="format-card__text">Cultural venues, expert facilitation, and small-group leadership conversations. Limited to 30 guests.</p>
+        </div>
+        <div class="format-card">
+          <div class="format-card__icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <span class="format-card__tag">Leadership Rooms</span>
+          <h3 class="format-card__title">Intimate roundtables on a single theme.</h3>
+          <p class="format-card__text">10–15 leaders. Off the record. Highly curated. Built for depth over breadth.</p>
+        </div>
+        <div class="format-card">
+          <div class="format-card__icon">
+            <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
+          <span class="format-card__tag">Masterclasses</span>
+          <h3 class="format-card__title">Expert-led sessions for practitioners.</h3>
+          <p class="format-card__text">A practitioner shares methodology, insight, or experience. Followed by structured Q&A.</p>
+        </div>
+        <div class="format-card">
+          <div class="format-card__icon">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <span class="format-card__tag">Connection Gatherings</span>
+          <h3 class="format-card__title">Curated social occasions for the community.</h3>
+          <p class="format-card__text">Designed to build relationships across LBL. Hosted in exceptional venues across Lisbon.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED EVENT -->
+  <section class="event">
+    <div class="event__inner">
+      <div class="event__image">
+        <div class="event__image-overlay"></div>
+      </div>
+      <div class="event__body">
+        <span class="label label--light">Next Gathering</span>
+        <p class="event__format-tag">Signature Experience</p>
+        <h2 class="event__title">The Art of Leadership:<br>Perception</h2>
+        <p class="event__desc">An immersive evening combining a guided museum experience with a leadership workshop. Explore how perception shapes decision-making.</p>
+        <div class="event__meta">
+          <div class="event__meta-row">
+            <span class="event__meta-label">Date</span>
+            <span class="event__meta-value">Thursday, 30 April 2026</span>
+          </div>
+          <div class="event__meta-row">
+            <span class="event__meta-label">Time</span>
+            <span class="event__meta-value">18:30</span>
+          </div>
+          <div class="event__meta-row">
+            <span class="event__meta-label">Venue</span>
+            <span class="event__meta-value">MNAC — National Museum of Contemporary Art, Lisboa</span>
+          </div>
+          <div class="event__meta-row">
+            <span class="event__meta-label">Capacity</span>
+            <span class="event__meta-value">Limited to 30 guests</span>
+          </div>
+        </div>
+        <a href="https://luma.com/73qt5b3g" target="_blank" class="btn btn--gold">Register on Luma</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAST GATHERINGS -->
+  <section class="past">
+    <div class="wrap">
+      <div class="past__header">
+        <div>
+          <span class="label">Past Gatherings</span>
+          <h2 class="past__title">Lisbon Leaders<br>in Motion</h2>
+        </div>
+        <a href="#" class="past__view-all">View all gatherings →</a>
+      </div>
+      <div class="past__grid">
+        <div class="past-card">
+          <div class="past-card__img">
+            <div class="past-card__img-inner" style="background-image:url('https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?w=600&q=80');"></div>
+          </div>
+          <div class="past-card__body">
+            <p class="past-card__format">Signature Experience</p>
+            <h3 class="past-card__title">The Art of Leadership</h3>
+            <p class="past-card__desc">An immersive evening exploring how leaders perceive challenges, teams, and opportunity.</p>
+            <p class="past-card__date">March 2026</p>
+          </div>
+        </div>
+        <div class="past-card">
+          <div class="past-card__img">
+            <div class="past-card__img-inner" style="background-image:url('https://images.unsplash.com/photo-1529119368496-2dfda6ec2804?w=600&q=80');"></div>
+          </div>
+          <div class="past-card__body">
+            <p class="past-card__format">Masterclass</p>
+            <h3 class="past-card__title">Master Slice</h3>
+            <p class="past-card__desc">A focused masterclass on decision-making under pressure, led by a practitioner with deep operational experience.</p>
+            <p class="past-card__date">February 2026</p>
+          </div>
+        </div>
+        <div class="past-card">
+          <div class="past-card__img">
+            <div class="past-card__img-inner" style="background-image:url('https://images.unsplash.com/photo-1541532713592-79a0317b6b77?w=600&q=80');"></div>
+          </div>
+          <div class="past-card__body">
+            <p class="past-card__format">Connection Gathering</p>
+            <h3 class="past-card__title">Palácio Ramalhete</h3>
+            <p class="past-card__desc">An exceptional evening at one of Lisbon's most storied venues — curated introductions and structured social time.</p>
+            <p class="past-card__date">January 2026</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEMBERSHIP -->
+  <section class="membership">
+    <div class="membership__inner wrap">
+      <div>
+        <span class="label label--light">Membership</span>
+        <h2 class="membership__title">Membership is<br>reopening soon.</h2>
+        <p class="membership__sub">LBL membership is for founders and corporate leaders committed to showing up with intention. Membership is by invitation only.</p>
+        <ul class="membership__list">
+          <li>Priority access to all gatherings</li>
+          <li>Member-to-member introductions</li>
+          <li>Access to private rooms and formats</li>
+          <li>International chapter access (BLI)</li>
+        </ul>
+        <a href="#" class="btn btn--gold">Request Invitation</a>
+        <p class="membership__note">Applications reviewed on a rolling basis.</p>
+      </div>
+      <div class="membership__quote-side">
+        <p class="membership__quote">"Selection is based on relevance, not seniority. We build the room for the conversation we want to have."</p>
+        <p class="membership__quote-attr">— Kasia Szczesniak, Founder</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS -->
+  <section class="partners">
+    <div class="wrap">
+      <div class="partners__header">
+        <div>
+          <span class="label">Partners &amp; Sponsors</span>
+          <h2 class="partners__title">Organisations that support LBL</h2>
+        </div>
+        <a href="#" class="btn btn--outline-dark">Become a Partner</a>
+      </div>
+      <div class="partners__logos">
+        <div class="partner-logo"><span>Deloitte</span></div>
+        <div class="partner-logo"><span>Cuatrecasas</span></div>
+        <div class="partner-logo"><span>Jerónimo Martins</span></div>
+        <div class="partner-logo"><span>PwC</span></div>
+        <div class="partner-logo"><span>Your Brand</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMAIL CAPTURE -->
+  <section class="email">
+    <div class="email__inner">
+      <span class="label label--light">Stay in the Loop</span>
+      <h2 class="email__title">Join the<br>invitation list.</h2>
+      <p class="email__sub">Get access to upcoming gatherings, opportunities, and curated introductions.</p>
+      <div class="email__form">
+        <input class="email__input" type="email" placeholder="Your email address" />
+        <button class="btn btn--gold">Subscribe</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer__top">
+        <div>
+          <!-- White logo in footer -->
+          <svg viewBox="0 0 300 68" fill="none" height="32" width="auto">
+            <line x1="28" y1="56" x2="22" y2="6" stroke="white" stroke-width="1.2"/>
+            <line x1="52" y1="56" x2="58" y2="6" stroke="white" stroke-width="1.2"/>
+            <line x1="34" y1="56" x2="30" y2="8" stroke="white" stroke-width="0.9"/>
+            <line x1="46" y1="56" x2="50" y2="8" stroke="white" stroke-width="0.9"/>
+            <line x1="22" y1="24" x2="50" y2="38" stroke="white" stroke-width="0.7" opacity="0.6"/>
+            <line x1="22" y1="38" x2="50" y2="24" stroke="white" stroke-width="0.7" opacity="0.6"/>
+            <line x1="20" y1="6" x2="60" y2="6" stroke="white" stroke-width="1.4"/>
+            <line x1="76" y1="56" x2="72" y2="18" stroke="white" stroke-width="1.1"/>
+            <line x1="94" y1="56" x2="98" y2="18" stroke="white" stroke-width="1.1"/>
+            <line x1="80" y1="56" x2="77" y2="19" stroke="white" stroke-width="0.75"/>
+            <line x1="90" y1="56" x2="93" y2="19" stroke="white" stroke-width="0.75"/>
+            <line x1="72" y1="30" x2="93" y2="40" stroke="white" stroke-width="0.6" opacity="0.6"/>
+            <line x1="72" y1="40" x2="93" y2="30" stroke="white" stroke-width="0.6" opacity="0.6"/>
+            <line x1="70" y1="18" x2="100" y2="18" stroke="white" stroke-width="1.2"/>
+            <path d="M0,42 Q22,8 40,6 Q70,18 85,18 Q95,18 110,36" stroke="white" stroke-width="1.1" fill="none"/>
+            <path d="M0,46 Q22,12 40,9 Q70,21 85,21 Q95,21 110,40" stroke="white" stroke-width="0.85" fill="none" opacity="0.7"/>
+            <line x1="0" y1="56" x2="110" y2="56" stroke="white" stroke-width="1.5"/>
+            <line x1="5" y1="62" x2="105" y2="62" stroke="white" stroke-width="0.7" opacity="0.22"/>
+            <text x="126" y="32" font-family="Georgia,serif" font-size="28" font-weight="700" fill="white" letter-spacing="4">LISBON</text>
+            <line x1="126" y1="40" x2="296" y2="40" stroke="rgba(255,255,255,0.15)" stroke-width="0.7"/>
+            <text x="127" y="54" font-family="Georgia,serif" font-size="13" fill="rgba(255,255,255,0.6)" letter-spacing="5.5">BUSINESS LEADERS</text>
+          </svg>
+          <p class="footer__tagline">Connecting Lisbon's business leaders through opportunities, collaboration, and growth.</p>
+          <p class="footer__bli">A founding city hub of <strong>Business Leaders International</strong></p>
+        </div>
+        <div class="footer__col">
+          <h4>Navigate</h4>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Gatherings</a></li>
+            <li><a href="#">Membership</a></li>
+            <li><a href="#">Partners</a></li>
+            <li><a href="#">Insights</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Community</h4>
+          <ul>
+            <li><a href="#">Join the Community</a></li>
+            <li><a href="#">Become a Partner</a></li>
+            <li><a href="#">Become a Sponsor</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:hello@lisbonbusinessleaders.com">hello@lisbonbusiness<br>leaders.com</a></li>
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2026 Lisbon Business Leaders. All rights reserved.</p>
+        <div class="footer__socials">
+          <a href="#" class="footer__social"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="#" class="footer__social"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="rgba(255,255,255,0.35)"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

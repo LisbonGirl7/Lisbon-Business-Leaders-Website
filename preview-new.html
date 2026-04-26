@@ -49,53 +49,103 @@
     .btn--dark { background: var(--black); color: var(--white); }
     .btn--dark:hover { background: #2a2a2a; }
 
-    /* ── LOGO SVG (the real bridge) ─────────────────── */
-    /* Inline in HTML below */
-
     /* ── NAV ───────────────────────────────────────── */
     .nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      height: 72px; background: rgba(14,14,14,0.96);
+      height: 100px; background: rgba(14,14,14,0.96);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(255,255,255,0.06);
       display: flex; align-items: center;
     }
     .nav__inner {
       display: flex; align-items: center; justify-content: space-between; width: 100%;
+      max-width: none;
+      padding: 0 56px 0 4px;
     }
-    .nav__logo { display: flex; align-items: center; }
-    .nav__links { display: flex; align-items: center; gap: 32px; }
+    .nav__logo { display: flex; align-items: center; margin-left: 1cm; }
+    .nav__logo img { height: 84px; width: auto; mix-blend-mode: screen; }
+    .nav__links { display: flex; align-items: center; gap: 52px; }
     .nav__link {
-      font-family: var(--sans); font-size: 11px; font-weight: 500;
+      font-family: var(--sans); font-size: 14px; font-weight: 500;
       letter-spacing: 0.14em; text-transform: uppercase;
       color: rgba(255,255,255,0.55); transition: color 0.2s;
     }
     .nav__link:hover, .nav__link.active { color: var(--white); }
-    .nav__cta {
-      font-family: var(--sans); font-size: 11px; font-weight: 600;
-      letter-spacing: 0.14em; text-transform: uppercase;
+
+    /* Nav CTA with dropdown */
+    .nav__cta-wrap { position: relative; }
+    .nav__cta-btn {
+      font-family: var(--sans); font-size: 13px; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase;
       border: 1px solid var(--gold); color: var(--gold);
-      padding: 9px 20px; transition: all 0.2s;
+      padding: 13px 28px; transition: all 0.2s; cursor: pointer;
+      background: transparent; display: flex; align-items: center; gap: 8px;
     }
-    .nav__cta:hover { background: var(--gold); color: var(--white); }
+    .nav__cta-btn:hover { background: var(--gold); color: var(--white); }
+    .nav__cta-btn svg { width: 10px; height: 10px; fill: currentColor; transition: transform 0.2s; }
+    .nav__cta-wrap.open .nav__cta-btn svg { transform: rotate(180deg); }
+    .nav__dropdown {
+      position: absolute; top: calc(100% + 10px); right: 0;
+      background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1);
+      min-width: 210px; display: none; z-index: 300;
+    }
+    .nav__cta-wrap.open .nav__dropdown { display: block; }
+    /* Events dropdown */
+    .nav__events-wrap { position: relative; }
+    .nav__events-btn {
+      font-family: var(--sans); font-size: 14px; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.55); transition: color 0.2s;
+      background: none; border: none; cursor: pointer; padding: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .nav__events-btn:hover { color: var(--white); }
+    .nav__events-btn svg { width: 10px; height: 10px; stroke: currentColor; fill: none; stroke-width: 2; transition: transform 0.2s; }
+    .nav__events-wrap.open .nav__events-btn svg { transform: rotate(180deg); }
+    .nav__events-dropdown {
+      position: absolute; top: calc(100% + 10px); left: 0;
+      background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1);
+      min-width: 180px; display: none; z-index: 300;
+    }
+    .nav__events-wrap.open .nav__events-dropdown { display: block; }
+    .nav__events-dropdown a {
+      display: block; font-family: var(--sans); font-size: 11px;
+      font-weight: 500; letter-spacing: 0.13em; text-transform: uppercase;
+      color: rgba(255,255,255,0.6); padding: 14px 22px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav__events-dropdown a:last-child { border-bottom: none; }
+    .nav__events-dropdown a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+    .nav__dropdown a {
+      display: block; font-family: var(--sans); font-size: 11px;
+      font-weight: 500; letter-spacing: 0.13em; text-transform: uppercase;
+      color: rgba(255,255,255,0.6); padding: 14px 22px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav__dropdown a:last-child { border-bottom: none; }
+    .nav__dropdown a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+    .nav__dropdown-label {
+      font-family: var(--sans); font-size: 9px; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); padding: 14px 22px 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
 
     /* ── HERO ──────────────────────────────────────── */
     .hero {
-      position: relative;
-      min-height: 100vh;
+      position: relative; min-height: 140vh;
       display: flex; align-items: flex-end;
-      padding-bottom: 100px;
-      overflow: hidden;
+      padding-bottom: 100px; overflow: hidden;
     }
     .hero__bg {
       position: absolute; inset: 0;
       background:
-        linear-gradient(to bottom, rgba(14,14,14,0.55) 0%, rgba(14,14,14,0.82) 60%, rgba(14,14,14,0.96) 100%),
-        url('https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=1600&q=85') center/cover no-repeat;
+        linear-gradient(to bottom, rgba(14,14,14,0.65) 0%, rgba(14,14,14,0.72) 35%, rgba(14,14,14,0.93) 65%, rgba(14,14,14,0.99) 100%),
+        url('assets/hero.jpg') center/cover no-repeat;
     }
-    .hero__content {
-      position: relative; z-index: 1; width: 100%;
-    }
+    .hero__content { position: relative; z-index: 1; width: 100%; }
     .hero__eyebrow {
       font-family: var(--sans); font-size: 10px; font-weight: 600;
       letter-spacing: 0.28em; text-transform: uppercase;
@@ -108,7 +158,7 @@
     }
     .hero__sub {
       font-family: var(--sans); font-size: 16px; line-height: 1.8;
-      color: rgba(255,255,255,0.6); max-width: 520px; margin-bottom: 48px;
+      color: rgba(255,255,255,0.6); max-width: 560px; margin-bottom: 48px;
     }
     .hero__actions { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
     .hero__scroll {
@@ -119,7 +169,8 @@
       letter-spacing: 0.2em; text-transform: uppercase;
     }
     .hero__scroll-line {
-      width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
     }
 
     /* ── POSITIONING ───────────────────────────────── */
@@ -128,7 +179,7 @@
       display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start;
     }
     .positioning__title {
-      font-family: var(--serif); font-size: clamp(38px, 4.5vw, 58px);
+      font-family: var(--serif); font-size: clamp(28px, 3.2vw, 46px);
       font-weight: 500; line-height: 1.08; color: var(--black); margin-bottom: 32px;
     }
     .positioning__body {
@@ -137,86 +188,93 @@
     }
     .positioning__body p { margin-bottom: 16px; }
     .positioning__body p:last-child { margin-bottom: 0; }
-    .positioning__quote {
-      border-left: 2px solid var(--gold); padding-left: 32px; margin-top: 8px;
-    }
+    .positioning__quote { border-left: 2px solid var(--gold); padding-left: 32px; margin-top: 8px; }
     .positioning__quote blockquote {
-      font-family: var(--serif); font-size: clamp(24px, 2.8vw, 34px);
-      font-style: italic; font-weight: 400; line-height: 1.4;
-      color: var(--black); margin-bottom: 20px;
+      font-family: var(--serif); font-size: clamp(18px, 2.1vw, 24px);
+      font-style: italic; font-weight: 400; line-height: 1.55;
+      color: var(--black); margin-bottom: 24px;
     }
-    .positioning__quote cite {
-      font-family: var(--sans); font-size: 11px; font-weight: 600;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: rgba(0,0,0,0.35); font-style: normal;
+    .positioning__quote-attr {
+      font-family: var(--sans); font-size: 12px; font-weight: 600;
+      color: rgba(0,0,0,0.7); margin-bottom: 4px;
+    }
+    .positioning__quote-role {
+      font-family: var(--sans); font-size: 11px;
+      letter-spacing: 0.1em; color: rgba(0,0,0,0.35);
     }
 
-    /* ── HOW IT WORKS ──────────────────────────────── */
-    .how { background: var(--dark); padding: 120px 0; }
-    .how__inner { }
-    .how__header { margin-bottom: 72px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; }
-    .how__headline {
+    /* ── EVENTS & FORMATS (merged) ─────────────────── */
+    .formats { background: var(--dark); padding: 120px 0; }
+    .formats__header {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      align-items: end; margin-bottom: 72px;
+    }
+    .formats__title {
       font-family: var(--serif); font-size: clamp(36px, 4.5vw, 56px);
       font-weight: 500; line-height: 1.1; color: var(--white);
     }
-    .how__pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; }
-    .how__pillar { background: rgba(255,255,255,0.03); padding: 48px 40px; border-top: 1px solid rgba(255,255,255,0.08); }
-    .how__num {
+    .formats__intro {
+      font-family: var(--sans); font-size: 15px; line-height: 1.8;
+      color: rgba(255,255,255,0.45); max-width: 400px;
+    }
+    .formats__intro strong { color: rgba(255,255,255,0.7); font-weight: 500; }
+
+    /* 3 pillars */
+    .formats__pillars {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; margin-bottom: 64px;
+    }
+    .formats__pillar {
+      background: rgba(255,255,255,0.03); padding: 44px 36px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .formats__pillar-num {
       font-family: var(--serif); font-size: 13px; color: var(--gold);
-      letter-spacing: 0.1em; margin-bottom: 20px; display: block;
+      letter-spacing: 0.1em; margin-bottom: 16px; display: block;
     }
-    .how__pillar-title {
-      font-family: var(--serif); font-size: 28px; font-weight: 500;
-      color: var(--white); margin-bottom: 16px;
+    .formats__pillar-title {
+      font-family: var(--serif); font-size: 26px; font-weight: 500;
+      color: var(--white); margin-bottom: 12px;
     }
-    .how__pillar-text {
+    .formats__pillar-text {
       font-family: var(--sans); font-size: 13px; line-height: 1.8;
-      color: rgba(255,255,255,0.45);
+      color: rgba(255,255,255,0.4);
     }
 
-    /* ── GATHERING FORMATS ─────────────────────────── */
-    .formats { background: var(--ivory); padding: 120px 0; }
-    .formats__header {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
-      align-items: end; margin-bottom: 64px;
-    }
-    .formats__title {
-      font-family: var(--serif); font-size: clamp(36px, 4vw, 52px);
-      font-weight: 500; line-height: 1.1; color: var(--black);
+    /* 4 format types */
+    .formats__divider {
+      border: none; border-top: 1px solid rgba(255,255,255,0.07); margin-bottom: 64px;
     }
     .formats__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
     .format-card {
-      background: var(--white); padding: 44px 32px;
+      background: rgba(255,255,255,0.03); padding: 40px 28px;
       border-top: 2px solid var(--gold);
     }
-    .format-card__icon { margin-bottom: 20px; }
-    .format-card__icon svg { width: 28px; height: 28px; stroke: var(--gold); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .format-card__icon { margin-bottom: 18px; }
+    .format-card__icon svg { width: 26px; height: 26px; stroke: var(--gold); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
     .format-card__tag {
       font-family: var(--sans); font-size: 10px; font-weight: 700;
       letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 12px; display: block;
+      color: var(--gold); margin-bottom: 10px; display: block;
     }
     .format-card__title {
-      font-family: var(--serif); font-size: 22px; font-weight: 500;
-      color: var(--black); margin-bottom: 12px; line-height: 1.2;
+      font-family: var(--serif); font-size: 20px; font-weight: 500;
+      color: var(--white); margin-bottom: 10px; line-height: 1.25;
     }
     .format-card__text {
-      font-family: var(--sans); font-size: 13px; line-height: 1.75;
-      color: rgba(0,0,0,0.5);
+      font-family: var(--sans); font-size: 12px; line-height: 1.75;
+      color: rgba(255,255,255,0.38);
     }
 
     /* ── FEATURED EVENT ────────────────────────────── */
-    .event { background: var(--dark); padding: 0; }
+    .event { background: var(--dark); padding: 0; border-top: 1px solid rgba(255,255,255,0.06); }
     .event__inner { display: grid; grid-template-columns: 1fr 1fr; }
     .event__image {
-      position: relative; min-height: 560px; overflow: hidden;
-      background: url('https://images.unsplash.com/photo-1541178735493-479c1a27ed24?w=800&q=80') center/cover no-repeat;
+      position: relative; overflow: hidden; background: #111;
+      display: flex; align-items: center; justify-content: center; padding: 40px 36px;
     }
-    .event__image-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to right, rgba(14,14,14,0.3) 0%, transparent 100%);
-    }
-    .event__body { padding: 80px 64px; display: flex; flex-direction: column; justify-content: center; }
+    .event__image img { width: auto; max-width: 280px; max-height: 420px; height: 100%; object-fit: contain; display: block; }
+    .event__body { padding: 56px 64px; display: flex; flex-direction: column; justify-content: center; }
     .event__format-tag {
       font-family: var(--sans); font-size: 10px; font-weight: 700;
       letter-spacing: 0.22em; text-transform: uppercase;
@@ -224,28 +282,22 @@
     }
     .event__title {
       font-family: var(--serif); font-size: clamp(34px, 4vw, 52px);
-      font-weight: 500; line-height: 1.08; color: var(--white);
-      margin-bottom: 20px;
+      font-weight: 500; line-height: 1.08; color: var(--white); margin-bottom: 20px;
     }
     .event__desc {
       font-family: var(--sans); font-size: 14px; line-height: 1.8;
       color: rgba(255,255,255,0.55); margin-bottom: 36px; max-width: 400px;
     }
     .event__meta { display: flex; flex-direction: column; gap: 10px; margin-bottom: 40px; }
-    .event__meta-row {
-      display: flex; gap: 14px; align-items: baseline;
-    }
+    .event__meta-row { display: flex; gap: 14px; align-items: baseline; }
     .event__meta-label {
       font-family: var(--sans); font-size: 9px; font-weight: 700;
       letter-spacing: 0.2em; text-transform: uppercase;
       color: rgba(255,255,255,0.28); width: 60px; flex-shrink: 0;
     }
-    .event__meta-value {
-      font-family: var(--sans); font-size: 13px;
-      color: rgba(255,255,255,0.75);
-    }
+    .event__meta-value { font-family: var(--sans); font-size: 13px; color: rgba(255,255,255,0.75); }
 
-    /* ── PAST GATHERINGS ───────────────────────────── */
+    /* ── PAST EVENTS ───────────────────────────────── */
     .past { background: var(--ivory); padding: 120px 0; }
     .past__header {
       display: flex; justify-content: space-between; align-items: flex-end;
@@ -258,15 +310,11 @@
     .past__view-all {
       font-family: var(--sans); font-size: 11px; font-weight: 600;
       letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold);
-      border-bottom: 1px solid var(--gold); padding-bottom: 2px;
-      white-space: nowrap;
+      border-bottom: 1px solid var(--gold); padding-bottom: 2px; white-space: nowrap;
     }
     .past__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
     .past-card { background: var(--white); overflow: hidden; }
-    .past-card__img {
-      height: 200px;
-      background: var(--stone); position: relative; overflow: hidden;
-    }
+    .past-card__img { height: 200px; background: var(--stone); position: relative; overflow: hidden; }
     .past-card__img-inner {
       position: absolute; inset: 0;
       background-size: cover; background-position: center;
@@ -287,10 +335,12 @@
       font-family: var(--sans); font-size: 12px; line-height: 1.7;
       color: rgba(0,0,0,0.5); margin-bottom: 16px;
     }
-    .past-card__date {
-      font-family: var(--sans); font-size: 10px; letter-spacing: 0.1em;
-      text-transform: uppercase; color: rgba(0,0,0,0.3);
+    .past-card__link {
+      font-family: var(--sans); font-size: 11px; font-weight: 500;
+      letter-spacing: 0.08em; color: var(--gold);
+      text-decoration: none; transition: opacity 0.2s;
     }
+    .past-card__link:hover { opacity: 0.7; }
 
     /* ── MEMBERSHIP ────────────────────────────────── */
     .membership { background: var(--dark); padding: 120px 0; }
@@ -312,17 +362,31 @@
       display: flex; gap: 14px; align-items: center;
     }
     .membership__list li::before { content: ''; width: 16px; height: 1px; background: var(--gold); flex-shrink: 0; }
-    .membership__note {
-      font-family: var(--sans); font-size: 11px; color: rgba(255,255,255,0.25);
-      letter-spacing: 0.06em; margin-top: 14px;
+    .membership__note { font-family: var(--sans); font-size: 11px; color: rgba(255,255,255,0.25); letter-spacing: 0.06em; margin-top: 14px; }
+
+    /* Join options */
+    .join-options { display: flex; flex-direction: column; gap: 10px; }
+    .join-options__label {
+      font-family: var(--sans); font-size: 9px; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(255,255,255,0.3); margin-bottom: 4px;
     }
-    .membership__quote-side {
-      border-left: 2px solid var(--gold); padding-left: 36px;
+    .join-option {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 22px; border: 1px solid rgba(255,255,255,0.1);
+      font-family: var(--sans); font-size: 12px; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.6); transition: all 0.2s; cursor: pointer;
     }
+    .join-option:hover { border-color: var(--gold); color: var(--gold); }
+    .join-option--primary { background: var(--gold); border-color: var(--gold); color: var(--white); }
+    .join-option--primary:hover { background: var(--gold-lt); border-color: var(--gold-lt); color: var(--white); }
+    .join-option svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+    .membership__quote-side { border-left: 2px solid var(--gold); padding-left: 36px; }
     .membership__quote {
       font-family: var(--serif); font-size: clamp(22px, 2.5vw, 30px);
-      font-style: italic; line-height: 1.5; color: rgba(255,255,255,0.65);
-      margin-bottom: 20px;
+      font-style: italic; line-height: 1.5; color: rgba(255,255,255,0.65); margin-bottom: 20px;
     }
     .membership__quote-attr {
       font-family: var(--sans); font-size: 10px; font-weight: 600;
@@ -331,45 +395,50 @@
 
     /* ── PARTNERS ──────────────────────────────────── */
     .partners { background: var(--ivory); padding: 80px 0; border-top: 1px solid rgba(0,0,0,0.06); }
-    .partners__header {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 48px;
-    }
-    .partners__title {
-      font-family: var(--serif); font-size: 28px; font-weight: 500; color: var(--black);
-    }
+    .partners__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 48px; }
+    .partners__title { font-family: var(--serif); font-size: 28px; font-weight: 500; color: var(--black); }
     .partners__logos { display: flex; gap: 0; align-items: center; flex-wrap: wrap; }
     .partner-logo {
       flex: 1; min-width: 120px; height: 64px;
       border-right: 1px solid rgba(0,0,0,0.06);
-      display: flex; align-items: center; justify-content: center;
-      padding: 0 24px;
+      display: flex; align-items: center; justify-content: center; padding: 0 24px;
     }
     .partner-logo:last-child { border-right: none; }
-    .partner-logo span {
-      font-family: var(--sans); font-size: 12px; font-weight: 600;
-      letter-spacing: 0.08em; color: rgba(0,0,0,0.3);
-    }
+    .partner-logo span { font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: rgba(0,0,0,0.3); }
 
     /* ── EMAIL ─────────────────────────────────────── */
-    .email { background: var(--dark); padding: 100px 0; text-align: center; }
-    .email__inner { max-width: 560px; margin: 0 auto; }
+    .email { background: var(--black); padding: 100px 0; }
+    .email__inner { width: 100%; max-width: none; padding: 0 64px; }
+    .email__layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .email__left {}
     .email__title {
-      font-family: var(--serif); font-size: clamp(36px, 4.5vw, 56px);
-      font-weight: 500; color: var(--white); line-height: 1.1; margin-bottom: 14px;
+      font-family: var(--sans); font-size: clamp(56px, 8vw, 120px);
+      font-weight: 800; color: var(--white); line-height: 0.95;
+      letter-spacing: -0.02em; text-transform: uppercase; margin: 0 0 24px;
     }
     .email__sub {
-      font-family: var(--sans); font-size: 15px; line-height: 1.7;
-      color: rgba(255,255,255,0.45); margin-bottom: 40px;
+      font-family: var(--sans); font-size: 16px; line-height: 1.7;
+      color: rgba(255,255,255,0.45); max-width: 420px;
     }
-    .email__form { display: flex; }
+    .email__right { display: flex; flex-direction: column; gap: 12px; padding-top: 12px; }
+    .email__row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .email__input {
-      flex: 1; font-family: var(--sans); font-size: 14px;
-      padding: 16px 20px; background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.12); border-right: none;
-      color: var(--white); outline: none;
+      width: 100%; font-family: var(--sans); font-size: 15px;
+      padding: 18px 20px; background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 6px;
+      color: var(--white); outline: none; transition: border-color 0.2s; box-sizing: border-box;
     }
-    .email__input::placeholder { color: rgba(255,255,255,0.25); }
+    .email__input:focus { border-color: rgba(255,255,255,0.4); }
+    .email__input::placeholder { color: rgba(255,255,255,0.35); }
+    .email__submit-row { display: flex; justify-content: flex-end; margin-top: 4px; }
+    .email__cta-btn {
+      font-family: var(--sans); font-size: 12px; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      border: 1px solid var(--gold); color: var(--gold); background: transparent;
+      padding: 14px 32px; cursor: pointer; transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 10px;
+    }
+    .email__cta-btn:hover { background: var(--gold); color: var(--white); }
 
     /* ── FOOTER ────────────────────────────────────── */
     .footer { background: var(--black); padding: 64px 0 28px; border-top: 1px solid rgba(255,255,255,0.05); }
@@ -378,6 +447,7 @@
       margin-bottom: 48px; padding-bottom: 48px;
       border-bottom: 1px solid rgba(255,255,255,0.06);
     }
+    .footer__logo img { height: 120px; width: auto; mix-blend-mode: screen; }
     .footer__tagline { font-family: var(--sans); font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.35); margin: 16px 0 10px; }
     .footer__bli { font-family: var(--sans); font-size: 11px; color: rgba(255,255,255,0.2); }
     .footer__bli strong { color: rgba(255,255,255,0.35); font-weight: 500; }
@@ -390,7 +460,9 @@
     .footer__socials { display: flex; gap: 12px; }
     .footer__social { width: 32px; height: 32px; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; transition: border-color 0.2s; }
     .footer__social:hover { border-color: rgba(255,255,255,0.35); }
-    .footer__social svg { width: 13px; height: 13px; fill: rgba(255,255,255,0.35); }
+    .footer__social svg { width: 14px; height: 14px; fill: rgba(255,255,255,0.35); }
+    .footer__social--wa svg { fill: none; stroke: rgba(255,255,255,0.35); stroke-width: 1.5; }
+    .footer__social--wa:hover svg { stroke: var(--white); }
   </style>
 </head>
 <body>
@@ -398,71 +470,37 @@
   <!-- NAV -->
   <nav class="nav">
     <div class="nav__inner wrap">
-      <!-- Real bridge logo SVG (white version) -->
       <a href="#" class="nav__logo">
-        <svg viewBox="0 0 300 68" fill="none" xmlns="http://www.w3.org/2000/svg" height="42" width="auto">
-          <!-- Left tower (taller, detailed with cross-bracing) -->
-          <!-- Outer left leg -->
-          <line x1="28" y1="56" x2="22" y2="6" stroke="white" stroke-width="1.2"/>
-          <!-- Outer right leg -->
-          <line x1="52" y1="56" x2="58" y2="6" stroke="white" stroke-width="1.2"/>
-          <!-- Inner left leg -->
-          <line x1="34" y1="56" x2="30" y2="8" stroke="white" stroke-width="0.9"/>
-          <!-- Inner right leg -->
-          <line x1="46" y1="56" x2="50" y2="8" stroke="white" stroke-width="0.9"/>
-          <!-- Cross braces left tower -->
-          <line x1="22" y1="24" x2="50" y2="38" stroke="white" stroke-width="0.7" opacity="0.7"/>
-          <line x1="22" y1="38" x2="50" y2="24" stroke="white" stroke-width="0.7" opacity="0.7"/>
-          <!-- Top cap left tower -->
-          <line x1="20" y1="6" x2="60" y2="6" stroke="white" stroke-width="1.4"/>
-
-          <!-- Right tower (smaller, behind) -->
-          <!-- Outer left leg -->
-          <line x1="76" y1="56" x2="72" y2="18" stroke="white" stroke-width="1.1"/>
-          <!-- Outer right leg -->
-          <line x1="94" y1="56" x2="98" y2="18" stroke="white" stroke-width="1.1"/>
-          <!-- Inner legs -->
-          <line x1="80" y1="56" x2="77" y2="19" stroke="white" stroke-width="0.75"/>
-          <line x1="90" y1="56" x2="93" y2="19" stroke="white" stroke-width="0.75"/>
-          <!-- Cross braces right tower -->
-          <line x1="72" y1="30" x2="93" y2="40" stroke="white" stroke-width="0.6" opacity="0.65"/>
-          <line x1="72" y1="40" x2="93" y2="30" stroke="white" stroke-width="0.6" opacity="0.65"/>
-          <!-- Top cap right tower -->
-          <line x1="70" y1="18" x2="100" y2="18" stroke="white" stroke-width="1.2"/>
-
-          <!-- Main suspension cables (3 parallel lines) -->
-          <!-- Cable 1 (leftmost) - from far left to right tower -->
-          <path d="M0,42 Q22,8 40,6 Q70,18 85,18 Q95,18 110,36" stroke="white" stroke-width="1.1" fill="none"/>
-          <!-- Cable 2 -->
-          <path d="M0,46 Q22,12 40,9 Q70,21 85,21 Q95,21 110,40" stroke="white" stroke-width="0.85" fill="none" opacity="0.75"/>
-          <!-- Cable 3 -->
-          <path d="M0,50 Q22,16 40,13 Q70,24 85,24 Q95,24 110,44" stroke="white" stroke-width="0.65" fill="none" opacity="0.5"/>
-
-          <!-- Bridge deck -->
-          <line x1="0" y1="56" x2="110" y2="56" stroke="white" stroke-width="1.5"/>
-
-          <!-- Water reflection lines -->
-          <line x1="5"  y1="62" x2="105" y2="62" stroke="white" stroke-width="0.8" opacity="0.25"/>
-          <line x1="15" y1="66" x2="95"  y2="66" stroke="white" stroke-width="0.5" opacity="0.12"/>
-
-          <!-- Text: LISBON -->
-          <text x="126" y="32" font-family="Cormorant Garamond, Georgia, serif" font-size="28" font-weight="700" fill="white" letter-spacing="4">LISBON</text>
-          <!-- Divider line -->
-          <line x1="126" y1="40" x2="296" y2="40" stroke="rgba(255,255,255,0.18)" stroke-width="0.7"/>
-          <!-- Text: BUSINESS LEADERS -->
-          <text x="127" y="54" font-family="Cormorant Garamond, Georgia, serif" font-size="13" font-weight="400" fill="rgba(255,255,255,0.65)" letter-spacing="5.5">BUSINESS LEADERS</text>
-        </svg>
+        <img src="assets/logo.png" alt="Lisbon Business Leaders">
       </a>
 
       <nav class="nav__links">
-        <a href="#" class="nav__link active">About</a>
-        <a href="#" class="nav__link">Gatherings</a>
-        <a href="#" class="nav__link">Membership</a>
-        <a href="#" class="nav__link">Partners</a>
-        <a href="#" class="nav__link">Insights</a>
-        <a href="#" class="nav__link">Contact</a>
+        <a href="#who-we-are" class="nav__link">Who We Are</a>
+        <a href="#why-join-us" class="nav__link">Why Join Us</a>
+        <div class="nav__events-wrap" id="navEventsWrap">
+          <button class="nav__events-btn" id="navEventsBtn">
+            Events
+            <svg viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="nav__events-dropdown">
+            <a href="#future-events">Future Events</a>
+            <a href="#past-events">Past Events</a>
+          </div>
+        </div>
       </nav>
-      <a href="#" class="nav__cta">Request Invitation</a>
+
+      <div class="nav__cta-wrap" id="navCtaWrap">
+        <button class="nav__cta-btn" id="navCtaBtn">
+          Join the Community
+          <svg viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg>
+        </button>
+        <div class="nav__dropdown">
+          <p class="nav__dropdown-label">How would you like to join?</p>
+          <a href="#">Become a Member</a>
+          <a href="#">Become a Partner</a>
+          <a href="#">Become a Sponsor</a>
+        </div>
+      </div>
     </div>
   </nav>
 
@@ -471,11 +509,10 @@
     <div class="hero__bg"></div>
     <div class="hero__content wrap">
       <p class="hero__eyebrow">Lisbon · First city hub of Business Leaders International</p>
-      <h1 class="hero__title">Where Lisbon's business leaders connect and grow.</h1>
-      <p class="hero__sub">Access real opportunities, build meaningful partnerships, and develop as a leader — in a way that's engaging, social, and actually enjoyable.</p>
+      <h1 class="hero__title">Where Lisbon's Business Leaders connect and grow.</h1>
+      <p class="hero__sub">Access real opportunities, build meaningful partnerships, and step into your next level of leadership through curated networking events, workshops, and immersive experiences.</p>
       <div class="hero__actions">
-        <a href="#" class="btn btn--gold">Join the Community</a>
-        <a href="#" class="btn btn--outline">View Gatherings</a>
+        <a href="#" class="btn btn--outline">Upcoming Events</a>
       </div>
     </div>
     <div class="hero__scroll">
@@ -485,113 +522,105 @@
   </section>
 
   <!-- POSITIONING -->
-  <section class="positioning">
+  <section class="positioning" id="who-we-are">
     <div class="positioning__inner wrap">
       <div>
-        <span class="label">More than networking</span>
-        <h2 class="positioning__title">This is where<br>business gets done.</h2>
+        <span class="label">Who We Are</span>
+        <h2 class="positioning__title">Where business is done<br>and connections are made.</h2>
         <div class="positioning__body">
-          <p>Partnerships are formed. Opportunities are created. And leaders grow through real-world conversations and experiences.</p>
-          <p>LBL is built for people already in motion — founders building companies, corporate leaders managing teams and outcomes.</p>
-          <p>What makes the room valuable is not just who attends, but how each gathering is curated, structured, and facilitated.</p>
+          <p>Lisbon Business Leaders is the first city hub of Business Leaders International - a growing global community of founders, executives, and decision-makers who believe that the right room changes everything.</p>
+          <p>We unite business leaders across industries and borders, creating a space where ambition meets opportunity and where the conversations you have today shape the outcomes of tomorrow.</p>
+          <p>From Lisbon to the world - this is where driven people come to build, grow, and lead together.</p>
         </div>
       </div>
       <div class="positioning__quote">
-        <blockquote>"The conversations I've had at LBL gatherings have been unlike anything else in Lisbon."</blockquote>
-        <cite>— LBL Member</cite>
+        <blockquote>"As a Co-Founder of an AI SaaS business struggling to grow sales, I unexpectedly found myself sitting across the table from a Google B2B SaaS sales expert. His insights were spot-on and spoke directly to the challenges we were facing at VeriCasa. After the event, we continued the conversation, which led us to revamp our strategy, hire a Head of Sales, and see a noticeable lift in both sales and marketing. That single encounter transformed how we approach sales - so glad I was there!"</blockquote>
+        <p class="positioning__quote-attr">Rodolfo Santos</p>
+        <p class="positioning__quote-role">Co-Founder at VeriCasa</p>
       </div>
     </div>
   </section>
 
-  <!-- HOW IT WORKS -->
-  <section class="how">
-    <div class="wrap">
-      <div class="how__header">
-        <div>
-          <span class="label label--light">How It Works</span>
-          <h2 class="how__headline">Every gathering is<br>designed with intention.</h2>
-        </div>
-        <p style="font-family:var(--sans); font-size:14px; line-height:1.8; color:rgba(255,255,255,0.4); max-width:360px;">
-          From the guest list to the room format, every decision is made to ensure the gathering delivers real value.
-        </p>
-      </div>
-      <div class="how__pillars">
-        <div class="how__pillar">
-          <span class="how__num">01</span>
-          <h3 class="how__pillar-title">Curated</h3>
-          <p class="how__pillar-text">Every seat matters. Guests are selected based on relevance, not reach. The room is built so every conversation has potential.</p>
-        </div>
-        <div class="how__pillar">
-          <span class="how__num">02</span>
-          <h3 class="how__pillar-title">Structured</h3>
-          <p class="how__pillar-text">Each format has a flow — an opening, a theme, a facilitated moment — so participants leave with something real.</p>
-        </div>
-        <div class="how__pillar">
-          <span class="how__num">03</span>
-          <h3 class="how__pillar-title">Facilitated</h3>
-          <p class="how__pillar-text">A host guides the room. That might be a question, a provocation, or a moment of shared insight that creates the conditions for connection.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- GATHERING FORMATS -->
-  <section class="formats">
+  <!-- WHY JOIN US -->
+  <section class="formats" id="why-join-us">
     <div class="wrap">
       <div class="formats__header">
         <div>
-          <span class="label">Gathering Formats</span>
-          <h2 class="formats__title">Business,<br>done differently.</h2>
+          <span class="label label--light">Why Join Us</span>
+          <h2 class="formats__title">Built for leaders.<br>Designed for growth.</h2>
         </div>
-        <p style="font-family:var(--sans); font-size:15px; line-height:1.8; color:rgba(0,0,0,0.5); max-width:380px;">
-          From curated dinners to interactive experiences, each event is designed to create opportunities while keeping it dynamic, social, and engaging.
+        <p class="formats__intro">
+          <strong>Locals and expats. Founders and executives.</strong> Lisbon Business Leaders brings together the most driven people in the city - those who are here to build, to grow, and to lead. In person and online.
         </p>
       </div>
-      <div class="formats__grid">
-        <div class="format-card">
-          <div class="format-card__icon">
-            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-          </div>
-          <span class="format-card__tag">Signature Experiences</span>
-          <h3 class="format-card__title">Immersive evenings in exceptional venues.</h3>
-          <p class="format-card__text">Cultural venues, expert facilitation, and small-group leadership conversations. Limited to 30 guests.</p>
+
+      <!-- 3 pillars -->
+      <div class="formats__pillars">
+        <div class="formats__pillar">
+          <span class="formats__pillar-num">01</span>
+          <h3 class="formats__pillar-title">The Right Room</h3>
+          <p class="formats__pillar-text">Partnerships are formed. Opportunities are created. Leaders grow through real-world conversations with people who are operating at the same level.</p>
         </div>
+        <div class="formats__pillar">
+          <span class="formats__pillar-num">02</span>
+          <h3 class="formats__pillar-title">Locals & Expats</h3>
+          <p class="formats__pillar-text">A unique mix of Lisbon-based founders and international executives. Local insight meets global thinking - in the same room, at the same table.</p>
+        </div>
+        <div class="formats__pillar">
+          <span class="formats__pillar-num">03</span>
+          <h3 class="formats__pillar-title">Global Network</h3>
+          <p class="formats__pillar-text">As the first hub of Business Leaders International, your Lisbon membership connects you to a growing worldwide community of founders and decision-makers.</p>
+        </div>
+      </div>
+
+      <hr class="formats__divider">
+
+      <!-- 4 benefit cards -->
+      <div class="formats__grid">
         <div class="format-card">
           <div class="format-card__icon">
             <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           </div>
-          <span class="format-card__tag">Leadership Rooms</span>
-          <h3 class="format-card__title">Intimate roundtables on a single theme.</h3>
-          <p class="format-card__text">10–15 leaders. Off the record. Highly curated. Built for depth over breadth.</p>
+          <span class="format-card__tag">Community</span>
+          <h3 class="format-card__title">A curated network you can actually rely on.</h3>
+          <p class="format-card__text">Every member is selected for what they bring to the room. Quality over quantity - always.</p>
         </div>
         <div class="format-card">
           <div class="format-card__icon">
-            <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
           </div>
-          <span class="format-card__tag">Masterclasses</span>
-          <h3 class="format-card__title">Expert-led sessions for practitioners.</h3>
-          <p class="format-card__text">A practitioner shares methodology, insight, or experience. Followed by structured Q&A.</p>
+          <span class="format-card__tag">Experiences</span>
+          <h3 class="format-card__title">Events designed to deliver real value.</h3>
+          <p class="format-card__text">Curated, structured, and facilitated - so every conversation has potential and every event leaves you with something real.</p>
         </div>
         <div class="format-card">
           <div class="format-card__icon">
-            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           </div>
-          <span class="format-card__tag">Connection Gatherings</span>
-          <h3 class="format-card__title">Curated social occasions for the community.</h3>
-          <p class="format-card__text">Designed to build relationships across LBL. Hosted in exceptional venues across Lisbon.</p>
+          <span class="format-card__tag">Global Reach</span>
+          <h3 class="format-card__title">Lisbon is just the beginning.</h3>
+          <p class="format-card__text">Connect with Business Leaders International hubs worldwide. Your network grows as the community expands city by city.</p>
+        </div>
+        <div class="format-card">
+          <div class="format-card__icon">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <span class="format-card__tag">Opportunities</span>
+          <h3 class="format-card__title">Where business actually gets done.</h3>
+          <p class="format-card__text">Partnerships formed. Deals made. Strategies shaped. The outcomes speak for themselves.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- FEATURED EVENT -->
-  <section class="event">
+  <section class="event" id="future-events">
     <div class="event__inner">
       <div class="event__image">
-        <div class="event__image-overlay"></div>
+        <img src="assets/event-art-of-leadership.png" alt="The Art of Leadership: Perception">
       </div>
       <div class="event__body">
-        <span class="label label--light">Next Gathering</span>
+        <span class="label label--light">Next Event</span>
         <p class="event__format-tag">Signature Experience</p>
         <h2 class="event__title">The Art of Leadership:<br>Perception</h2>
         <p class="event__desc">An immersive evening combining a guided museum experience with a leadership workshop. Explore how perception shapes decision-making.</p>
@@ -606,60 +635,54 @@
           </div>
           <div class="event__meta-row">
             <span class="event__meta-label">Venue</span>
-            <span class="event__meta-value">MNAC — National Museum of Contemporary Art, Lisboa</span>
+            <span class="event__meta-value">MNAC - National Museum of Contemporary Art, Lisboa</span>
           </div>
           <div class="event__meta-row">
             <span class="event__meta-label">Capacity</span>
             <span class="event__meta-value">Limited to 30 guests</span>
           </div>
         </div>
-        <a href="https://luma.com/73qt5b3g" target="_blank" class="btn btn--gold">Register on Luma</a>
+        <a href="https://luma.com/73qt5b3g" target="_blank" class="btn btn--gold" style="font-size:12px; padding:10px 20px; letter-spacing:0.16em; display:inline-flex; width:auto; align-self:flex-start;">Register Here</a>
       </div>
     </div>
   </section>
 
-  <!-- PAST GATHERINGS -->
-  <section class="past">
+  <!-- PAST EVENTS -->
+  <section class="past" id="past-events">
     <div class="wrap">
       <div class="past__header">
         <div>
-          <span class="label">Past Gatherings</span>
-          <h2 class="past__title">Lisbon Leaders<br>in Motion</h2>
+          <span class="label">Past Events</span>
+          <h2 class="past__title">Past Events</h2>
         </div>
-        <a href="#" class="past__view-all">View all gatherings →</a>
+        <a href="#" class="past__view-all">View all events →</a>
       </div>
       <div class="past__grid">
         <div class="past-card">
           <div class="past-card__img">
-            <div class="past-card__img-inner" style="background-image:url('https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?w=600&q=80');"></div>
+            <div class="past-card__img-inner" style="background-image:url('assets/event-value-of-networking.jpg');"></div>
           </div>
           <div class="past-card__body">
-            <p class="past-card__format">Signature Experience</p>
-            <h3 class="past-card__title">The Art of Leadership</h3>
-            <p class="past-card__desc">An immersive evening exploring how leaders perceive challenges, teams, and opportunity.</p>
-            <p class="past-card__date">March 2026</p>
+            <h3 class="past-card__title">Value of Networking</h3>
+            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7318667344229113858/" target="_blank" class="past-card__link">View on LinkedIn →</a>
           </div>
         </div>
         <div class="past-card">
           <div class="past-card__img">
-            <div class="past-card__img-inner" style="background-image:url('https://images.unsplash.com/photo-1529119368496-2dfda6ec2804?w=600&q=80');"></div>
+            <div class="past-card__img-inner" style="background-image:url('assets/event-master-slice.jpg');"></div>
           </div>
           <div class="past-card__body">
-            <p class="past-card__format">Masterclass</p>
             <h3 class="past-card__title">Master Slice</h3>
-            <p class="past-card__desc">A focused masterclass on decision-making under pressure, led by a practitioner with deep operational experience.</p>
-            <p class="past-card__date">February 2026</p>
+            <a href="https://www.instagram.com/p/DDpTXz6OQDG/" target="_blank" class="past-card__link">View on Instagram →</a>
           </div>
         </div>
         <div class="past-card">
           <div class="past-card__img">
-            <div class="past-card__img-inner" style="background-image:url('https://images.unsplash.com/photo-1541532713592-79a0317b6b77?w=600&q=80');"></div>
+            <div class="past-card__img-inner" style="background-image:url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&q=80');"></div>
           </div>
           <div class="past-card__body">
-            <p class="past-card__format">Connection Gathering</p>
-            <h3 class="past-card__title">Palácio Ramalhete</h3>
-            <p class="past-card__desc">An exceptional evening at one of Lisbon's most storied venues — curated introductions and structured social time.</p>
-            <p class="past-card__date">January 2026</p>
+            <h3 class="past-card__title">Web Summit Networking Mixer</h3>
+            <a href="https://www.instagram.com/p/DCMOhMwuY1b/" target="_blank" class="past-card__link">View on Instagram →</a>
           </div>
         </div>
       </div>
@@ -672,19 +695,33 @@
       <div>
         <span class="label label--light">Membership</span>
         <h2 class="membership__title">Membership is<br>reopening soon.</h2>
-        <p class="membership__sub">LBL membership is for founders and corporate leaders committed to showing up with intention. Membership is by invitation only.</p>
+        <p class="membership__sub">Lisbon Business Leaders membership is for founders and corporate leaders committed to showing up with intention. Membership is by invitation only.</p>
         <ul class="membership__list">
-          <li>Priority access to all gatherings</li>
+          <li>Priority access to all events</li>
           <li>Member-to-member introductions</li>
           <li>Access to private rooms and formats</li>
-          <li>International chapter access (BLI)</li>
+          <li>International chapter access (Business Leaders International)</li>
         </ul>
-        <a href="#" class="btn btn--gold">Request Invitation</a>
+        <p class="join-options__label">How would you like to join?</p>
+        <div class="join-options">
+          <a href="#" class="join-option join-option--primary">
+            Become a Member
+            <svg viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+          </a>
+          <a href="#" class="join-option">
+            Become a Partner
+            <svg viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+          </a>
+          <a href="#" class="join-option">
+            Become a Sponsor
+            <svg viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+          </a>
+        </div>
         <p class="membership__note">Applications reviewed on a rolling basis.</p>
       </div>
       <div class="membership__quote-side">
         <p class="membership__quote">"Selection is based on relevance, not seniority. We build the room for the conversation we want to have."</p>
-        <p class="membership__quote-attr">— Kasia Szczesniak, Founder</p>
+        <p class="membership__quote-attr">- Kasia Szczesniak, Founder</p>
       </div>
     </div>
   </section>
@@ -695,7 +732,7 @@
       <div class="partners__header">
         <div>
           <span class="label">Partners &amp; Sponsors</span>
-          <h2 class="partners__title">Organisations that support LBL</h2>
+          <h2 class="partners__title">Organisations that support Lisbon Business Leaders</h2>
         </div>
         <a href="#" class="btn btn--outline-dark">Become a Partner</a>
       </div>
@@ -712,12 +749,27 @@
   <!-- EMAIL CAPTURE -->
   <section class="email">
     <div class="email__inner">
-      <span class="label label--light">Stay in the Loop</span>
-      <h2 class="email__title">Join the<br>invitation list.</h2>
-      <p class="email__sub">Get access to upcoming gatherings, opportunities, and curated introductions.</p>
-      <div class="email__form">
-        <input class="email__input" type="email" placeholder="Your email address" />
-        <button class="btn btn--gold">Subscribe</button>
+      <div class="email__layout">
+        <div class="email__left">
+          <h2 class="email__title">Join the<br>Community</h2>
+          <p class="email__sub">Stay up to date with all Lisbon Business Leaders events, opportunities, and community news.</p>
+        </div>
+        <div class="email__right">
+          <form onsubmit="return false;" style="display:contents;">
+            <div class="email__row">
+              <input class="email__input" type="text" placeholder="First name" />
+              <input class="email__input" type="text" placeholder="Last name" />
+            </div>
+            <input class="email__input" type="email" placeholder="Enter your email" />
+            <input class="email__input" type="url" placeholder="LinkedIn URL" />
+            <div class="email__submit-row">
+              <button class="email__cta-btn" type="submit">
+                Subscribe
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </section>
@@ -726,49 +778,24 @@
   <footer class="footer">
     <div class="wrap">
       <div class="footer__top">
-        <div>
-          <!-- White logo in footer -->
-          <svg viewBox="0 0 300 68" fill="none" height="32" width="auto">
-            <line x1="28" y1="56" x2="22" y2="6" stroke="white" stroke-width="1.2"/>
-            <line x1="52" y1="56" x2="58" y2="6" stroke="white" stroke-width="1.2"/>
-            <line x1="34" y1="56" x2="30" y2="8" stroke="white" stroke-width="0.9"/>
-            <line x1="46" y1="56" x2="50" y2="8" stroke="white" stroke-width="0.9"/>
-            <line x1="22" y1="24" x2="50" y2="38" stroke="white" stroke-width="0.7" opacity="0.6"/>
-            <line x1="22" y1="38" x2="50" y2="24" stroke="white" stroke-width="0.7" opacity="0.6"/>
-            <line x1="20" y1="6" x2="60" y2="6" stroke="white" stroke-width="1.4"/>
-            <line x1="76" y1="56" x2="72" y2="18" stroke="white" stroke-width="1.1"/>
-            <line x1="94" y1="56" x2="98" y2="18" stroke="white" stroke-width="1.1"/>
-            <line x1="80" y1="56" x2="77" y2="19" stroke="white" stroke-width="0.75"/>
-            <line x1="90" y1="56" x2="93" y2="19" stroke="white" stroke-width="0.75"/>
-            <line x1="72" y1="30" x2="93" y2="40" stroke="white" stroke-width="0.6" opacity="0.6"/>
-            <line x1="72" y1="40" x2="93" y2="30" stroke="white" stroke-width="0.6" opacity="0.6"/>
-            <line x1="70" y1="18" x2="100" y2="18" stroke="white" stroke-width="1.2"/>
-            <path d="M0,42 Q22,8 40,6 Q70,18 85,18 Q95,18 110,36" stroke="white" stroke-width="1.1" fill="none"/>
-            <path d="M0,46 Q22,12 40,9 Q70,21 85,21 Q95,21 110,40" stroke="white" stroke-width="0.85" fill="none" opacity="0.7"/>
-            <line x1="0" y1="56" x2="110" y2="56" stroke="white" stroke-width="1.5"/>
-            <line x1="5" y1="62" x2="105" y2="62" stroke="white" stroke-width="0.7" opacity="0.22"/>
-            <text x="126" y="32" font-family="Georgia,serif" font-size="28" font-weight="700" fill="white" letter-spacing="4">LISBON</text>
-            <line x1="126" y1="40" x2="296" y2="40" stroke="rgba(255,255,255,0.15)" stroke-width="0.7"/>
-            <text x="127" y="54" font-family="Georgia,serif" font-size="13" fill="rgba(255,255,255,0.6)" letter-spacing="5.5">BUSINESS LEADERS</text>
-          </svg>
-          <p class="footer__tagline">Connecting Lisbon's business leaders through opportunities, collaboration, and growth.</p>
+        <div class="footer__logo">
+          <img src="assets/logo.png" alt="Lisbon Business Leaders">
+          <p class="footer__tagline">Connecting Lisbon's Business Leaders through opportunities, collaboration, and growth.</p>
           <p class="footer__bli">A founding city hub of <strong>Business Leaders International</strong></p>
         </div>
         <div class="footer__col">
           <h4>Navigate</h4>
           <ul>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Gatherings</a></li>
+            <li><a href="#">Events</a></li>
             <li><a href="#">Membership</a></li>
             <li><a href="#">Partners</a></li>
-            <li><a href="#">Insights</a></li>
             <li><a href="#">Contact</a></li>
           </ul>
         </div>
         <div class="footer__col">
           <h4>Community</h4>
           <ul>
-            <li><a href="#">Join the Community</a></li>
+            <li><a href="#">Become a Member</a></li>
             <li><a href="#">Become a Partner</a></li>
             <li><a href="#">Become a Sponsor</a></li>
           </ul>
@@ -776,21 +803,72 @@
         <div class="footer__col">
           <h4>Contact</h4>
           <ul>
-            <li><a href="mailto:hello@lisbonbusinessleaders.com">hello@lisbonbusiness<br>leaders.com</a></li>
-            <li><a href="#">LinkedIn</a></li>
-            <li><a href="#">Instagram</a></li>
+            <li><a href="mailto:contact@lisbonbusinessleaders.com">contact@lisbonbusiness<br>leaders.com</a></li>
+            <li><a href="https://www.linkedin.com/company/lisbon-business-leaders" target="_blank">LinkedIn</a></li>
+            <li><a href="https://www.instagram.com/lisbonbusinessleaders/" target="_blank">Instagram</a></li>
+            <li><a href="https://wa.me/" target="_blank">WhatsApp</a></li>
           </ul>
         </div>
       </div>
       <div class="footer__bottom">
         <p class="footer__copy">© 2026 Lisbon Business Leaders. All rights reserved.</p>
         <div class="footer__socials">
-          <a href="#" class="footer__social"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
-          <a href="#" class="footer__social"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="rgba(255,255,255,0.35)"/></svg></a>
+          <!-- LinkedIn -->
+          <a href="https://www.linkedin.com/company/lisbon-business-leaders" target="_blank" class="footer__social">
+            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/lisbonbusinessleaders/" target="_blank" class="footer__social">
+            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="rgba(255,255,255,0.35)"/></svg>
+          </a>
+          <!-- WhatsApp -->
+          <a href="https://wa.me/" target="_blank" class="footer__social footer__social--wa">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.18-1.62A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.21-1.25-6.22-3.48-8.52zm-8.52 18.4a9.9 9.9 0 0 1-5.05-1.38l-.36-.22-3.72.98.99-3.63-.23-.37A9.93 9.93 0 0 1 2.1 12C2.1 6.53 6.53 2.1 12 2.1A9.9 9.9 0 0 1 21.9 12c0 5.47-4.43 9.88-9.9 9.88zm5.45-7.4c-.3-.15-1.77-.87-2.04-.97-.28-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.07a8.14 8.14 0 0 1-2.4-1.48 9.03 9.03 0 0 1-1.66-2.07c-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.21-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35z" fill="rgba(255,255,255,0.35)"/></svg>
+          </a>
         </div>
       </div>
     </div>
   </footer>
+
+  <script>
+    // Nav dropdown
+    // Join the Community dropdown
+    const wrap = document.getElementById('navCtaWrap');
+    const btn  = document.getElementById('navCtaBtn');
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      wrap.classList.toggle('open');
+      eventsWrap.classList.remove('open');
+    });
+
+    // Events dropdown
+    const eventsWrap = document.getElementById('navEventsWrap');
+    const eventsBtn  = document.getElementById('navEventsBtn');
+    eventsBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      eventsWrap.classList.toggle('open');
+      wrap.classList.remove('open');
+    });
+
+    // Close all on outside click
+    document.addEventListener('click', function() {
+      wrap.classList.remove('open');
+      eventsWrap.classList.remove('open');
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          eventsWrap.classList.remove('open');
+          wrap.classList.remove('open');
+          window.scrollTo({ top: target.offsetTop - 100, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>

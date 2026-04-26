@@ -483,7 +483,8 @@
       margin-bottom: 48px; padding-bottom: 48px;
       border-bottom: 1px solid rgba(255,255,255,0.06);
     }
-    .footer__logo img { height: 120px; width: auto; mix-blend-mode: screen; }
+    .footer__logo { text-align: left; }
+    .footer__logo img { width: 300px; height: auto; mix-blend-mode: screen; display: block; }
     .footer__tagline { font-family: var(--sans); font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.45); margin: 16px 0 10px; }
     .footer__bli { font-family: var(--sans); font-size: 13px; color: rgba(255,255,255,0.3); }
     .footer__bli strong { color: rgba(255,255,255,0.5); font-weight: 500; }
@@ -719,7 +720,7 @@
               <input id="bf-lastname" class="email__input" type="text" placeholder="Last name" />
             </div>
             <input id="bf-email" class="email__input" type="email" placeholder="Enter your email" required />
-            <input id="bf-linkedin" class="email__input" type="url" placeholder="LinkedIn URL" />
+            <input id="bf-linkedin" class="email__input" type="text" placeholder="LinkedIn URL (optional)" />
             <div class="email__submit-row">
               <button id="bf-submit" class="email__cta-btn" type="submit">
                 Subscribe
@@ -761,13 +762,13 @@
   <!-- FOOTER -->
   <footer class="footer">
     <div class="wrap">
-      <div class="footer__top" style="grid-template-columns: 1fr auto; align-items: center;">
+      <div class="footer__top" style="grid-template-columns: 1fr auto; align-items: start; gap: 80px; justify-content: space-between;">
         <div class="footer__logo">
           <img src="assets/logo.png" alt="Lisbon Business Leaders">
           <p class="footer__tagline">Connecting Lisbon's Business Leaders through opportunities, collaboration, and growth.</p>
           <p class="footer__bli">A founding city hub of <strong>Business Leaders International</strong></p>
         </div>
-        <div class="footer__col" style="display:flex; flex-direction:column; align-items:flex-end; gap:20px;">
+        <div style="display:flex; flex-direction:column; gap:20px; padding-top: 8px;">
           <span style="font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:var(--gold);">Connect With Us</span>
           <a href="https://www.linkedin.com/company/lisbon-business-leaders" target="_blank" style="font-family:var(--sans);font-size:15px;color:rgba(255,255,255,0.55);transition:color 0.2s;display:flex;align-items:center;gap:10px;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.55)'"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg> LinkedIn</a>
           <a href="https://www.instagram.com/lisbonbusinessleaders/" target="_blank" style="font-family:var(--sans);font-size:15px;color:rgba(255,255,255,0.55);transition:color 0.2s;display:flex;align-items:center;gap:10px;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.55)'"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg> Instagram</a>
@@ -852,6 +853,21 @@
           msg.style.color = 'rgba(255,255,255,0.6)';
           msg.textContent = 'You\'re in. Welcome to the Leadership Insider.';
           document.getElementById('brevoForm').reset();
+          // Notify Kasia of new subscriber
+          fetch('https://api.brevo.com/v3/smtp/email', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'api-key': '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'
+            },
+            body: JSON.stringify({
+              sender: { name: 'Lisbon Business Leaders', email: 'kasia@lisbonbusinessleaders.com' },
+              to: [{ email: 'kasia@lisbonbusinessleaders.com', name: 'Kasia' }],
+              subject: 'New Leadership Insider subscriber - ' + firstname + ' ' + lastname,
+              htmlContent: '<p>A new subscriber just signed up to the Leadership Insider.</p><ul><li><strong>Name:</strong> ' + firstname + ' ' + lastname + '</li><li><strong>Email:</strong> ' + email + '</li>' + (linkedin ? '<li><strong>LinkedIn:</strong> <a href="' + linkedin + '">' + linkedin + '</a></li>' : '') + '</ul>'
+            })
+          });
+
         } else {
           return res.json().then(function(data) {
             if (data.code === 'duplicate_parameter') {

@@ -500,6 +500,110 @@
     .footer__social svg { width: 14px; height: 14px; fill: rgba(255,255,255,0.35); }
     .footer__social--wa svg { fill: none; stroke: rgba(255,255,255,0.35); stroke-width: 1.5; }
     .footer__social--wa:hover svg { stroke: var(--white); }
+
+    /* ── HAMBURGER ─────────────────────────────────── */
+    .nav__hamburger {
+      display: none; flex-direction: column; justify-content: center; gap: 5px;
+      width: 36px; height: 36px; background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .nav__hamburger span {
+      display: block; width: 22px; height: 1.5px; background: rgba(255,255,255,0.75);
+      transition: all 0.25s;
+    }
+    .nav--open .nav__hamburger span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav--open .nav__hamburger span:nth-child(2) { opacity: 0; }
+    .nav--open .nav__hamburger span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .nav__mobile-menu {
+      display: none; flex-direction: column;
+      background: rgba(14,14,14,0.98); border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 16px 0 24px;
+    }
+    .nav--open .nav__mobile-menu { display: flex; }
+    .nav__mobile-link {
+      font-family: var(--sans); font-size: 13px; font-weight: 500;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: rgba(255,255,255,0.55); padding: 14px 28px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: color 0.2s;
+    }
+    .nav__mobile-link:hover { color: var(--white); }
+    .nav__mobile-cta {
+      font-family: var(--sans); font-size: 12px; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--gold); padding: 18px 28px; margin-top: 8px;
+      border: 1px solid var(--gold); margin: 16px 28px 0;
+      text-align: center; transition: all 0.2s;
+    }
+    .nav__mobile-cta:hover { background: var(--gold); color: var(--white); }
+
+    /* ── MOBILE ────────────────────────────────────── */
+    @media (max-width: 768px) {
+      html, body { overflow-x: hidden; }
+      .wrap { padding: 0 24px; }
+
+      /* Nav */
+      .nav { height: 70px; }
+      .nav__inner { padding: 0 20px 0 0; }
+      .nav__logo { margin-left: 16px; }
+      .nav__logo img { height: 56px; }
+      .nav__links { display: none; }
+      .nav__cta-wrap { display: none; }
+      .nav__hamburger { display: flex; }
+
+      /* Hero */
+      .hero { min-height: 100svh; padding-bottom: 80px; padding-top: 70px; }
+      .hero__eyebrow { font-size: 11px; }
+      .hero__sub { font-size: 15px; }
+
+      /* Positioning / Who We Are */
+      .positioning { padding: 72px 0; }
+      .positioning__inner { grid-template-columns: 1fr; gap: 48px; }
+      .positioning__quote { border-left: 2px solid var(--gold); padding-left: 24px; }
+
+      /* Why Join Us */
+      .formats { padding: 72px 0; }
+      .formats__header { grid-template-columns: 1fr; gap: 28px; margin-bottom: 48px; }
+      .formats__intro { max-width: 100%; }
+      .formats__pillars { grid-template-columns: 1fr; gap: 1px; }
+      .formats__grid { grid-template-columns: 1fr 1fr; }
+      .format-card { padding: 28px 20px; }
+
+      /* Featured event */
+      .event__inner { grid-template-columns: 1fr; }
+      .event__image { padding: 32px 24px; min-height: 240px; }
+      .event__image img { width: 70%; }
+      .event__body { padding: 36px 24px; }
+
+      /* Past events */
+      .past { padding: 72px 0; }
+      .past__grid { grid-template-columns: 1fr; }
+      .past__header { flex-direction: column; align-items: flex-start; gap: 14px; }
+
+      /* Email / Newsletter */
+      .email { padding: 72px 0; }
+      .email__inner { padding: 0 24px; }
+      .email__layout { grid-template-columns: 1fr; gap: 40px; }
+      .email__row { grid-template-columns: 1fr; }
+      .email__submit-row { justify-content: flex-start; }
+      .email__cta-btn { width: 100%; justify-content: center; }
+
+      /* Founder */
+      .founder { padding: 72px 0; }
+      .founder__inner { grid-template-columns: 1fr; gap: 36px; padding: 0 24px; }
+      .founder__img { aspect-ratio: 4/3; object-position: top center; }
+      .founder__role { margin-bottom: 28px; }
+
+      /* Footer */
+      .footer__top { grid-template-columns: 1fr !important; gap: 36px !important; }
+      .footer__logo img { width: 200px; }
+      .footer__tagline { font-size: 14px; }
+      .footer__bottom { flex-direction: column; gap: 12px; align-items: flex-start; }
+    }
+
+    @media (max-width: 480px) {
+      .formats__grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -538,6 +642,19 @@
           <a href="#">Become a Sponsor</a>
         </div>
       </div>
+
+      <button class="nav__hamburger" id="navHamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="nav__mobile-menu" id="navMobileMenu">
+      <a href="#who-we-are" class="nav__mobile-link">Who We Are</a>
+      <a href="#why-join-us" class="nav__mobile-link">Why Join Us</a>
+      <a href="#future-events" class="nav__mobile-link">Future Events</a>
+      <a href="#past-events" class="nav__mobile-link">Past Events</a>
+      <a href="#newsletter" class="nav__mobile-cta">Join the Leadership Insider</a>
     </div>
   </nav>
 
@@ -818,6 +935,17 @@
           window.scrollTo({ top: target.offsetTop - 100, behavior: 'smooth' });
         }
       });
+    });
+
+    // Hamburger menu
+    var hamburger = document.getElementById('navHamburger');
+    var nav = document.querySelector('.nav');
+    hamburger.addEventListener('click', function() {
+      nav.classList.toggle('nav--open');
+    });
+    // Close mobile menu on link click
+    document.querySelectorAll('.nav__mobile-link, .nav__mobile-cta').forEach(function(link) {
+      link.addEventListener('click', function() { nav.classList.remove('nav--open'); });
     });
 
     // Brevo newsletter signup

@@ -21,7 +21,12 @@
       "Bash(git add *)",
       "Bash(git commit *)",
       "Bash(open \"http://localhost:8765/preview-new.html\")",
-      "Bash(xargs ls *)"
+      "Bash(xargs ls *)",
+      "Bash(git config *)",
+      "Bash(cp \"/Users/kasiaszczesniak/Desktop/Screenshot 2026-04-26 at 16.39.01.png\" \"/Users/kasiaszczesniak/Lisbon Business Leaders Website/assets/event-value-of-networking.png\")",
+      "Bash(cp \"/Users/kasiaszczesniak/Desktop/Screenshot 2026-04-26 at 16.39.05.png\" \"/Users/kasiaszczesniak/Lisbon Business Leaders Website/assets/event-master-slice.png\")",
+      "Bash(cp \"/Users/kasiaszczesniak/Desktop/Screenshot 2026-04-26 at 16.39.09.png\" \"/Users/kasiaszczesniak/Lisbon Business Leaders Website/assets/event-web-summit-mixer.png\")",
+      "Bash(git reset *)"
     ]
   }
 }

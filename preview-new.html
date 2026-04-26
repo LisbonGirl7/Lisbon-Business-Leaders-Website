@@ -713,19 +713,20 @@
           <p class="email__sub">Stay close to what's happening inside Lisbon Business Leaders - events, opportunities, community updates, and announcements.</p>
         </div>
         <div class="email__right">
-          <form onsubmit="return false;" style="display:contents;">
+          <form id="brevoForm" style="display:contents;">
             <div class="email__row">
-              <input class="email__input" type="text" placeholder="First name" />
-              <input class="email__input" type="text" placeholder="Last name" />
+              <input id="bf-firstname" class="email__input" type="text" placeholder="First name" required />
+              <input id="bf-lastname" class="email__input" type="text" placeholder="Last name" />
             </div>
-            <input class="email__input" type="email" placeholder="Enter your email" />
-            <input class="email__input" type="url" placeholder="LinkedIn URL" />
+            <input id="bf-email" class="email__input" type="email" placeholder="Enter your email" required />
+            <input id="bf-linkedin" class="email__input" type="url" placeholder="LinkedIn URL" />
             <div class="email__submit-row">
-              <button class="email__cta-btn" type="submit">
+              <button id="bf-submit" class="email__cta-btn" type="submit">
                 Subscribe
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
               </button>
             </div>
+            <p id="bf-message" style="font-family:var(--sans);font-size:13px;margin-top:12px;display:none;"></p>
           </form>
         </div>
       </div>
@@ -768,9 +769,9 @@
         </div>
         <div class="footer__col" style="display:flex; flex-direction:column; align-items:flex-end; gap:20px;">
           <span style="font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:var(--gold);">Connect With Us</span>
-          <a href="https://www.linkedin.com/company/lisbon-business-leaders" target="_blank" style="font-family:var(--sans);font-size:15px;color:rgba(255,255,255,0.55);transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.55)'">LinkedIn</a>
-          <a href="https://www.instagram.com/lisbonbusinessleaders/" target="_blank" style="font-family:var(--sans);font-size:15px;color:rgba(255,255,255,0.55);transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.55)'">Instagram</a>
-          <a href="https://wa.me/" target="_blank" style="font-family:var(--sans);font-size:15px;color:rgba(255,255,255,0.55);transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.55)'">WhatsApp</a>
+          <a href="https://www.linkedin.com/company/lisbon-business-leaders" target="_blank" style="font-family:var(--sans);font-size:15px;color:rgba(255,255,255,0.55);transition:color 0.2s;display:flex;align-items:center;gap:10px;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.55)'"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg> LinkedIn</a>
+          <a href="https://www.instagram.com/lisbonbusinessleaders/" target="_blank" style="font-family:var(--sans);font-size:15px;color:rgba(255,255,255,0.55);transition:color 0.2s;display:flex;align-items:center;gap:10px;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.55)'"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg> Instagram</a>
+          <a href="https://wa.me/" target="_blank" style="font-family:var(--sans);font-size:15px;color:rgba(255,255,255,0.55);transition:color 0.2s;display:flex;align-items:center;gap:10px;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.55)'"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.18-1.62A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.21-1.25-6.22-3.48-8.52zm-8.52 18.4a9.9 9.9 0 0 1-5.05-1.38l-.36-.22-3.72.98.99-3.63-.23-.37A9.93 9.93 0 0 1 2.1 12C2.1 6.53 6.53 2.1 12 2.1A9.9 9.9 0 0 1 21.9 12c0 5.47-4.43 9.88-9.9 9.88zm5.45-7.4c-.3-.15-1.77-.87-2.04-.97-.28-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.07a8.14 8.14 0 0 1-2.4-1.48 9.03 9.03 0 0 1-1.66-2.07c-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.21-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35z"/></svg> WhatsApp</a>
         </div>
       </div>
       <div class="footer__bottom">
@@ -815,6 +816,60 @@
           wrap.classList.remove('open');
           window.scrollTo({ top: target.offsetTop - 100, behavior: 'smooth' });
         }
+      });
+    });
+
+    // Brevo newsletter signup
+    document.getElementById('brevoForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var btn = document.getElementById('bf-submit');
+      var msg = document.getElementById('bf-message');
+      var firstname = document.getElementById('bf-firstname').value.trim();
+      var lastname = document.getElementById('bf-lastname').value.trim();
+      var email = document.getElementById('bf-email').value.trim();
+      var linkedin = document.getElementById('bf-linkedin').value.trim();
+
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+
+      var payload = {
+        email: email,
+        listIds: [2],
+        attributes: { FIRSTNAME: firstname, LASTNAME: lastname }
+      };
+      if (linkedin) payload.attributes.LINKEDIN = linkedin;
+
+      fetch('https://api.brevo.com/v3/contacts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'api-key': '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'
+        },
+        body: JSON.stringify(payload)
+      }).then(function(res) {
+        msg.style.display = 'block';
+        if (res.ok || res.status === 204) {
+          msg.style.color = 'rgba(255,255,255,0.6)';
+          msg.textContent = 'You\'re in. Welcome to the Leadership Insider.';
+          document.getElementById('brevoForm').reset();
+        } else {
+          return res.json().then(function(data) {
+            if (data.code === 'duplicate_parameter') {
+              msg.style.color = 'rgba(255,255,255,0.6)';
+              msg.textContent = 'You\'re already subscribed.';
+            } else {
+              msg.style.color = '#e07070';
+              msg.textContent = 'Something went wrong. Please try again.';
+            }
+          });
+        }
+      }).catch(function() {
+        msg.style.display = 'block';
+        msg.style.color = '#e07070';
+        msg.textContent = 'Something went wrong. Please try again.';
+      }).finally(function() {
+        btn.disabled = false;
+        btn.textContent = 'Subscribe';
       });
     });
   </script>

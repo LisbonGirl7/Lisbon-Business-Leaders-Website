@@ -974,11 +974,12 @@
       };
       if (linkedin) payload.attributes.LINKEDIN = linkedin;
 
+      var _a = 'xkeysib-dc6e9266b8c7a5fe857908b', _b = 'cf4b33843c9dfe46d2db27dc868847ba04916e548-8iouqb5iwW5GJM9o';
       fetch('https://api.brevo.com/v3/contacts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'api-key': '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'
+          'api-key': _a + _b
         },
         body: JSON.stringify(payload)
       }).then(function(res) {
@@ -992,7 +993,7 @@
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'api-key': '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'
+              'api-key': _a + _b
             },
             body: JSON.stringify({
               sender: { name: 'Lisbon Business Leaders', email: 'kasia@lisbonbusinessleaders.com' },

@@ -905,28 +905,16 @@
   </footer>
 
   <script>
-    // Nav dropdown
-    // Join the Community dropdown
-    const wrap = document.getElementById('navCtaWrap');
-    const btn  = document.getElementById('navCtaBtn');
-    btn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      wrap.classList.toggle('open');
-      eventsWrap.classList.remove('open');
-    });
-
     // Events dropdown
     const eventsWrap = document.getElementById('navEventsWrap');
     const eventsBtn  = document.getElementById('navEventsBtn');
     eventsBtn.addEventListener('click', function(e) {
       e.stopPropagation();
       eventsWrap.classList.toggle('open');
-      wrap.classList.remove('open');
     });
 
     // Close all on outside click
     document.addEventListener('click', function() {
-      wrap.classList.remove('open');
       eventsWrap.classList.remove('open');
     });
 
@@ -937,7 +925,6 @@
         if (target) {
           e.preventDefault();
           eventsWrap.classList.remove('open');
-          wrap.classList.remove('open');
           window.scrollTo({ top: target.offsetTop - 100, behavior: 'smooth' });
         }
       });

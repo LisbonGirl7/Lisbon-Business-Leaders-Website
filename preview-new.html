@@ -917,41 +917,16 @@
       btn.disabled = true;
       btn.textContent = 'Sending...';
 
-      var payload = {
-        email: email,
-        listIds: [2],
-        attributes: { FIRSTNAME: firstname, LASTNAME: lastname }
-      };
-
-      var _a = '__BREVO_KEY__', _b = '';
-      fetch('https://api.brevo.com/v3/contacts', {
+      fetch('/api/subscribe', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'api-key': _a + _b
-        },
-        body: JSON.stringify(payload)
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstname: firstname, lastname: lastname, email: email })
       }).then(function(res) {
         msg.style.display = 'block';
-        if (res.ok || res.status === 204) {
+        if (res.ok) {
           msg.style.color = 'rgba(255,255,255,0.6)';
           msg.textContent = 'You\'re in. Welcome to the Leadership Insider.';
           document.getElementById('brevoForm').reset();
-          // Notify Kasia of new subscriber
-          fetch('https://api.brevo.com/v3/smtp/email', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'api-key': _a
-            },
-            body: JSON.stringify({
-              sender: { name: 'Lisbon Business Leaders', email: 'kasia@lisbonbusinessleaders.com' },
-              to: [{ email: 'kasia@lisbonbusinessleaders.com', name: 'Kasia' }],
-              subject: 'New Leadership Insider subscriber - ' + firstname + ' ' + lastname,
-              htmlContent: '<p>A new subscriber just signed up to the Leadership Insider.</p><ul><li><strong>Name:</strong> ' + firstname + ' ' + lastname + '</li><li><strong>Email:</strong> ' + email + '</li></ul>'
-            })
-          });
-
         } else {
           return res.json().then(function(data) {
             if (data.code === 'duplicate_parameter') {

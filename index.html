@@ -946,8 +946,6 @@
       var firstname = document.getElementById('bf-firstname').value.trim();
       var lastname = document.getElementById('bf-lastname').value.trim();
       var email = document.getElementById('bf-email').value.trim();
-      var linkedin = document.getElementById('bf-linkedin').value.trim();
-
       btn.disabled = true;
       btn.textContent = 'Sending...';
 
@@ -956,7 +954,6 @@
         listIds: [2],
         attributes: { FIRSTNAME: firstname, LASTNAME: lastname }
       };
-      if (linkedin) payload.attributes.LINKEDIN = linkedin;
 
       var _a = '__BREVO_KEY__', _b = '';
       fetch('https://api.brevo.com/v3/contacts', {
@@ -983,7 +980,7 @@
               sender: { name: 'Lisbon Business Leaders', email: 'kasia@lisbonbusinessleaders.com' },
               to: [{ email: 'kasia@lisbonbusinessleaders.com', name: 'Kasia' }],
               subject: 'New Leadership Insider subscriber - ' + firstname + ' ' + lastname,
-              htmlContent: '<p>A new subscriber just signed up to the Leadership Insider.</p><ul><li><strong>Name:</strong> ' + firstname + ' ' + lastname + '</li><li><strong>Email:</strong> ' + email + '</li>' + (linkedin ? '<li><strong>LinkedIn:</strong> <a href="' + linkedin + '">' + linkedin + '</a></li>' : '') + '</ul>'
+              htmlContent: '<p>A new subscriber just signed up to the Leadership Insider.</p><ul><li><strong>Name:</strong> ' + firstname + ' ' + lastname + '</li><li><strong>Email:</strong> ' + email + '</li></ul>'
             })
           });
 

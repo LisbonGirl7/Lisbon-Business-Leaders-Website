@@ -3,9 +3,13 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { firstname, lastname, email, website } = req.body;
+  const { firstname, lastname, email, website, loadtime } = req.body;
 
   if (website) {
+    return res.status(200).json({ success: true });
+  }
+
+  if (loadtime && (Date.now() - parseInt(loadtime) < 3000)) {
     return res.status(200).json({ success: true });
   }
 

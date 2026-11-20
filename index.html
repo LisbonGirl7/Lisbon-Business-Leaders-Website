@@ -846,6 +846,7 @@
         <div class="email__right">
           <form id="brevoForm" style="display:flex;flex-direction:column;gap:12px;width:100%;">
             <input id="bf-website" name="website" type="text" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" aria-hidden="true">
+            <input id="bf-loadtime" name="loadtime" type="hidden">
             <div class="email__row">
               <input id="bf-firstname" class="email__input" type="text" placeholder="First name" required />
               <input id="bf-lastname" class="email__input" type="text" placeholder="Last name" />
@@ -948,6 +949,9 @@
       link.addEventListener('click', function() { nav.classList.remove('nav--open'); });
     });
 
+    // Set form load time for bot detection
+    document.getElementById('bf-loadtime').value = Date.now();
+
     // Brevo newsletter signup
     document.getElementById('brevoForm').addEventListener('submit', function(e) {
       e.preventDefault();
@@ -957,6 +961,7 @@
       var lastname = document.getElementById('bf-lastname').value.trim();
       var email = document.getElementById('bf-email').value.trim();
       if (document.getElementById('bf-website').value) { return; }
+      if (Date.now() - parseInt(document.getElementById('bf-loadtime').value) < 3000) { return; }
       btn.disabled = true;
       btn.textContent = 'Sending...';
 

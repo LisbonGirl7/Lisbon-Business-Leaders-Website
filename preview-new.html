@@ -845,6 +845,7 @@
         </div>
         <div class="email__right">
           <form id="brevoForm" style="display:flex;flex-direction:column;gap:12px;width:100%;">
+            <input id="bf-website" name="website" type="text" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" aria-hidden="true">
             <div class="email__row">
               <input id="bf-firstname" class="email__input" type="text" placeholder="First name" required />
               <input id="bf-lastname" class="email__input" type="text" placeholder="Last name" />
@@ -955,6 +956,7 @@
       var firstname = document.getElementById('bf-firstname').value.trim();
       var lastname = document.getElementById('bf-lastname').value.trim();
       var email = document.getElementById('bf-email').value.trim();
+      if (document.getElementById('bf-website').value) { return; }
       btn.disabled = true;
       btn.textContent = 'Sending...';
 
